@@ -1,0 +1,23 @@
+<!doctype html>
+<html lang="cs">
+<head>
+<meta charset="utf-8">
+<meta name="robots" content="noindex,nofollow">
+<title>Přesměrování…</title>
+</head>
+<body>
+<script>
+(function(){
+  const parts=location.pathname.split('/').filter(Boolean);
+  const code=parts[parts.length-1]||'';
+  const onGithub=location.hostname.endsWith('github.io');
+  const base=onGithub?'/stuzkovaci-vecirek-8a/':'/';
+  if(/^\d{4}$/.test(code)){
+    location.replace(base+'?code='+encodeURIComponent(code));
+  }else{
+    location.replace(base);
+  }
+})();
+</script>
+</body>
+</html>
