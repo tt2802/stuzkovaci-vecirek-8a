@@ -130,11 +130,12 @@ grant execute on function public.is_admin() to authenticated;
 grant select, insert, update, delete on public.invitations to authenticated;
 grant usage, select on sequence public.invitations_id_seq to authenticated;
 
-insert into public.invitations
-(name, salutation, subject, code)
-values
-('Leona Jelínková','paní profesorko Jelínková','Matematika','5831'),
-('Jaroslav Štěpánek','pane profesore Štěpánku','Informatika','2746'),
-('Martin Skýpala','pane profesore Skýpalo','Chemie','8193'),
-('Hana Kyšnerová','paní profesorko Kyšnerová','Čeština','4062')
-on conflict (code) do nothing;
+
+
+-- Veřejný web NESMÍ mít přímý přístup do tabulek.
+revoke all on table public.invitations from anon;
+revoke all on table public.admin_users from anon, authenticated;
+
+-- Administrace používá authenticated roli, ale přístup je stále omezen RLS + is_admin().
+grant select, insert, update, delete on table public.invitations to authenticated;
+grant usage, select on sequence public.invitations_id_seq to authenticated;
