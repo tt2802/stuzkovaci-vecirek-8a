@@ -59,7 +59,7 @@ document.getElementById('codeInput').addEventListener('keydown',e=>{if(e.key==='
 document.getElementById('codeOpen').onclick=()=>loadCode(document.getElementById('codeInput').value);
 
 const boot=document.getElementById('boot');let bootDone=false,experienceStarted=false;
-function endBoot(){if(bootDone)return;bootDone=true;boot.style.display='none';setTimeout(()=>openWin('invite'),100)}
+function endBoot(){if(bootDone)return;bootDone=true;boot.style.display='none'}
 function startExperience(){if(experienceStarted)return;experienceStarted=true;boot.style.display='grid';document.getElementById('skip').onclick=endBoot;boot.onclick=e=>{if(e.target.id!=='skip')endBoot()};setTimeout(endBoot,1500)}
 function openWin(id){openS();document.querySelectorAll('.window').forEach(w=>w.style.zIndex=20);const e=document.getElementById(id);e.classList.add('open');e.style.zIndex=40}
 document.querySelectorAll('[data-open]').forEach(b=>b.onclick=()=>openWin(b.dataset.open));
