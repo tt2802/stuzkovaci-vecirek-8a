@@ -6,7 +6,11 @@ let soundOn=true,ctx=null,selected='',currentCode='',teacher=null,failedCodeAtte
 
 // Sem potom jen doplníme vybrané skladby. Soubory budou v /music/.
 // Příklad: {title:'Název skladby', src:'./music/01.mp3'}
-const MUSIC_PLAYLIST = [];
+const MUSIC_PLAYLIST = [
+  {title:'Kool & The Gang – Celebration', src:'./music/Kool & The Gang - Celebration.mp3'},
+  {title:'War – Low Rider', src:'./music/Low Rider.mp3'},
+  {title:'Cyndi Lauper – Girls Just Want to Have Fun', src:'./music/Girls Just Want To Have Fun — Cyndi Lauper.mp3'}
+];
 let musicIndex=0,musicShuffle=false,musicWasUnlocked=false,musicStarted=false;
 const musicAudio=document.getElementById('musicAudio');
 musicAudio.volume=.22;
