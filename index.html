@@ -33,6 +33,21 @@
 .window{position:fixed;background:var(--silver);border:2px solid;border-color:#fff #000 #000 #fff;box-shadow:3px 3px 0 rgba(0,0,0,.35);display:none;z-index:20;min-width:300px}.window.open{display:block}.invite{width:min(650px,calc(100vw - 24px));left:50%;top:49%;transform:translate(-50%,-50%)}.confirm{width:min(570px,calc(100vw - 24px));left:50%;top:50%;transform:translate(-50%,-50%)}.smallwin{width:min(470px,calc(100vw - 24px));left:23%;top:20%}
 .titlebar{background:linear-gradient(90deg,var(--navy),#0f54af);color:#fff;padding:4px 5px;display:flex;align-items:center;font-weight:700}.titlebar .title{flex:1}.close{font:700 13px Arial;width:24px;height:22px;padding:0;background:var(--silver);border:2px solid;border-color:#fff #000 #000 #fff;cursor:pointer}.body{padding:18px;background:#fff;margin:3px;border:2px solid;border-color:#808080 #fff #fff #808080}.body h1{font-size:26px;margin:0 0 8px}.lead{font-size:16px;line-height:1.45}.banner{background:linear-gradient(90deg,#090319,#51127d,#ff3eac);color:#fff;border:2px solid #000;padding:16px;margin-bottom:17px;box-shadow:4px 4px 0 var(--yellow)}.banner .over{font:900 12px/1 monospace;color:var(--cyan);letter-spacing:.12em}.banner .mega{font:900 clamp(36px,6vw,60px)/.82 Impact,Arial Black,sans-serif;margin-top:8px;text-shadow:3px 3px #000}.banner .retro{font:900 19px/1 Arial Black;color:var(--yellow);margin-top:10px}.personal{background:#ffffe1;border:1px solid #000;padding:9px 10px;margin:14px 0}.meta{display:grid;grid-template-columns:115px 1fr;gap:8px 12px;margin:17px 0}.winbtn{background:var(--silver);border:2px solid;border-color:#fff #000 #000 #fff;padding:8px 15px;min-width:100px;font-weight:700;cursor:pointer}.winbtn:active{border-color:#000 #fff #fff #000}.primary{font-size:16px;padding:11px 18px!important;box-shadow:0 0 0 2px #000}.actions{display:flex;gap:9px;flex-wrap:wrap;justify-content:flex-end}.choice{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:14px 0}.choice button{min-height:56px}.choice button.selected{outline:3px dotted #000;outline-offset:-7px}.note{width:100%;min-height:96px;resize:vertical;padding:7px;border:2px solid;border-color:#808080 #fff #fff #808080}.status{display:none;margin-top:13px;padding:10px;background:#ffffe1;border:1px solid #000}.status.show{display:block}.easy{display:flex;gap:7px;align-items:center;flex-wrap:wrap;margin-top:11px}.easy span{background:#efefef;border:1px solid #777;padding:5px 7px}
 .taskbar{position:fixed;left:0;right:0;bottom:0;height:42px;background:var(--silver);border-top:2px solid #fff;display:flex;align-items:center;padding:4px;gap:6px;z-index:80}.start{height:32px;padding:0 10px;background:var(--silver);border:2px solid;border-color:#fff #000 #000 #fff;font-weight:700}.taskitem{height:32px;min-width:230px;padding:6px 10px;background:#d0d0d0;border:2px solid;border-color:#808080 #fff #fff #808080}.clock{margin-left:auto;height:32px;padding:6px 10px;border:2px solid;border-color:#808080 #fff #fff #808080}.sound{height:32px;min-width:38px;background:var(--silver);border:2px solid;border-color:#fff #000 #000 #fff;cursor:pointer}
+.musicTask{height:32px;min-width:42px;background:var(--silver);border:2px solid;border-color:#fff #000 #000 #fff;cursor:pointer;font-weight:900}
+.playerBody{background:#111!important;color:#74ff6b!important;font-family:Consolas,"Courier New",monospace}
+.playerDisplay{background:#041604;border:2px inset #777;padding:10px;margin-bottom:10px;box-shadow:inset 0 0 18px rgba(80,255,80,.09)}
+.playerTitle{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-weight:700;min-height:18px}
+.playerTime{display:flex;justify-content:space-between;gap:12px;margin-top:7px;font-size:12px;color:#c0ffc0}
+.playerProgress{height:10px;background:#0a250a;border:1px solid #4a7a4a;margin-top:8px;cursor:pointer;position:relative}
+.playerProgress i{display:block;height:100%;width:0;background:#74ff6b;pointer-events:none}
+.playerControls{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin:9px 0}.playerControls button{min-width:0;padding:7px 5px;font-family:inherit}
+.playerVolume{display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:8px;margin-top:9px}
+.playerVolume input{width:100%;accent-color:#74ff6b}
+.playerList{margin:10px 0 0;padding:0;list-style:none;max-height:125px;overflow:auto;border-top:1px solid #365536}
+.playerList li{padding:6px 4px;border-bottom:1px solid #1f391f;color:#b9ffb3;cursor:pointer}
+.playerList li.active{background:#163b16;color:#fff}
+.playerEmpty{color:#d8d8d8;line-height:1.4}
+.musicHint{display:none;position:fixed;right:58px;bottom:50px;z-index:95;background:#ffffe1;border:1px solid #000;padding:8px 10px;box-shadow:3px 3px rgba(0,0,0,.25);max-width:240px}.musicHint.show{display:block}
 
 @media(max-width:720px){
   html,body{height:100%;height:100dvh}
@@ -165,7 +180,8 @@
   }
   .start{height:36px;min-width:74px}
   .taskitem{display:none}
-  .sound{height:36px;min-width:42px;margin-left:auto}
+  .musicTask{height:36px;min-width:44px;margin-left:auto}
+  .sound{height:36px;min-width:42px;margin-left:0}
   .clock{height:36px;padding:7px 9px;margin-left:0}
 
   .boot{padding:env(safe-area-inset-top) 0 env(safe-area-inset-bottom)}
@@ -274,9 +290,28 @@ Loading maturity.exe....... WARNING</pre><div class="bootbar"><i></i></div><butt
 <div class="actions" style="margin-top:16px"><button class="winbtn" data-close="dresscodewin">ROZUMÍM</button></div>
 </div></section>
 
+<section class="window smallwin" id="musicwin"><div class="titlebar"><span class="title">8.A DISCO PLAYER — MUSIC.EXE</span><button class="close" data-close="musicwin">×</button></div><div class="body playerBody">
+<div class="playerDisplay">
+  <div class="playerTitle" id="musicTitle">PLAYLIST // čekám na skladby...</div>
+  <div class="playerTime"><span id="musicCurrent">00:00</span><span id="musicDuration">00:00</span></div>
+  <div class="playerProgress" id="musicProgress" title="Posun ve skladbě"><i id="musicProgressFill"></i></div>
+</div>
+<div class="playerControls">
+  <button class="winbtn" id="musicPrev" type="button">|◀</button>
+  <button class="winbtn" id="musicPlay" type="button">▶</button>
+  <button class="winbtn" id="musicNext" type="button">▶|</button>
+  <button class="winbtn" id="musicShuffle" type="button">SHUF</button>
+</div>
+<div class="playerVolume"><span>VOL</span><input id="musicVolume" type="range" min="0" max="100" value="22"><span id="musicVolumeValue">22%</span></div>
+<ul class="playerList" id="musicList"></ul>
+<div class="playerEmpty" id="musicEmpty">Playlist je připravený. Jakmile doplníme skladby, po zadání kódu se hudba pokusí spustit automaticky.</div>
+</div></section>
+
 <section class="window smallwin" id="trashwin"><div class="titlebar"><span class="title">Koš</span><button class="close" data-close="trashwin">×</button></div><div class="body"><h1>Obsah koše</h1><ul><li>pisemka_final_FINAL2.doc</li><li>uceni_prubezne.txt</li><li>absence.xls</li><li>motivace.zip</li><li>spanek.exe</li><li>maturita_final_FINAL.exe</li></ul><div class="actions"><button class="winbtn" data-close="trashwin">Zavřít</button></div></div></section>
 
-<div class="taskbar"><button class="start" id="start">▣ Start</button><div class="taskitem">Stužkovací večírek 8.A — náhled</div><button class="sound" id="sound" title="Vypnout zvuk">🔊</button><div class="clock" id="clock">--:--</div></div>
+<div class="musicHint" id="musicHint">🎵 Hudbu můžete spustit tlačítkem vpravo dole.</div>
+<audio id="musicAudio" preload="metadata"></audio>
+<div class="taskbar"><button class="start" id="start">▣ Start</button><div class="taskitem">Stužkovací večírek 8.A</div><button class="musicTask" id="musicTask" type="button" title="Hudba / přehrávač">🎵</button><button class="sound" id="sound" title="Vypnout systémové zvuky">🔊</button><div class="clock" id="clock">--:--</div></div>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.117.2"></script>
 <script src="./app.js"></script>
