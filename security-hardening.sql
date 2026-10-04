@@ -18,6 +18,10 @@ create table if not exists private.request_limits (
 create index if not exists request_limits_ip_action_time_idx
 on private.request_limits (client_ip, action, requested_at desc);
 
+-- Tabulka je soukromá a RLS je zapnuté také kvůli bezpečnostní kontrole Supabase.
+-- Helper funkce běží jako SECURITY DEFINER, takže ji mohou bezpečně používat.
+alter table private.request_limits enable row level security;
+
 revoke all on table private.request_limits from public, anon, authenticated;
 
 create or replace function private.client_ip()
