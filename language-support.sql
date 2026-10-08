@@ -1,6 +1,5 @@
--- LANGUAGE SUPPORT — STUŽKOVACÍ VEČÍREK 8.A
--- Spusť jednou v Supabase -> SQL Editor.
--- Přidá jazyk pozvánky ke každému učiteli a zachová server-side rate limiting.
+-- OPRAVA JAZYKU A PRIHLASENI PRES KOD
+-- Spustte cely blok v Supabase -> SQL Editor.
 
 alter table public.invitations
 add column if not exists language text not null default 'cs';
@@ -8,18 +7,6 @@ add column if not exists language text not null default 'cs';
 update public.invitations
 set language='cs'
 where language is null or language not in ('cs','en');
-
-do $$
-begin
-  if not exists (
-    select 1 from pg_constraint
-    where conname='invitations_language_check'
-      and conrelid='public.invitations'::regclass
-  ) then
-    alter table public.invitations
-    add constraint invitations_language_check check (language in ('cs','en'));
-  end if;
-end $$;
 
 drop function if exists public.get_invitation(text);
 
@@ -33,20 +20,61 @@ returns table (
   active boolean,
   language text
 )
+language sql
+stable
+security definer
+set search_path = public
+as $$
+  select
+    i.salutation,
+    i.subject,
+    i.rsvp_status,
+    i.note,
+    i.admin_reply,
+    i.active,
+    i.language
+  from public.invitations i
+  where i.code = p_code
+    and i.active = true
+    and p_code ~ '^[0-9]{4}$'
+  limit 1;
+$$;
+
+grant execute on function public.get_invitation(text) to anon, authenticated;
+
+drop function if exists public.submit_rsvp(text, text, text);
+
+create function public.submit_rsvp(
+  p_code text,
+  p_status text,
+  p_note text default null
+)
+returns boolean
 language plpgsql
 security definer
-set search_path = public, private
+set search_path = public
 as $$
 begin
-  perform private.enforce_rate_limit('invitation_lookup', 30, interval '10 minutes');
-  if p_code is null or p_code !~ '^[0-9]{4}$' then return; end if;
-  return query
-  select i.salutation,i.subject,i.rsvp_status,i.note,i.admin_reply,i.active,i.language
-  from public.invitations i
-  where i.code=p_code and i.active=true
-  limit 1;
+  if p_code is null
+     or p_code !~ '^[0-9]{4}$'
+     or p_status not in ('Přijdu', 'Nepřijdu') then
+    return false;
+  end if;
+
+  update public.invitations
+  set
+    rsvp_status = p_status,
+    note = nullif(left(trim(coalesce(p_note, '')), 1000), ''),
+    responded_at = now(),
+    admin_reply = null,
+    admin_replied_at = null
+  where code = p_code
+    and active = true;
+
+  return found;
 end;
 $$;
 
-revoke all on function public.get_invitation(text) from public;
-grant execute on function public.get_invitation(text) to anon, authenticated;
+grant execute on function public.submit_rsvp(text,text,text) to anon, authenticated;
+
+notify pgrst, 'reload schema';
