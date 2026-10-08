@@ -58,7 +58,7 @@ button,.btn{font:700 14px Tahoma;background:var(--silver);border:2px solid;borde
 
       <div class="tableWrap">
         <table>
-          <thead><tr><th>Učitel</th><th>Předmět</th><th>Kód</th><th>Stav</th><th>Poznámka / dotaz</th><th>Vaše odpověď</th><th>Odkaz</th><th>Akce</th></tr></thead>
+          <thead><tr><th>Učitel</th><th>Předmět</th><th>Jazyk</th><th>Kód</th><th>Stav</th><th>Poznámka / dotaz</th><th>Vaše odpověď</th><th>Odkaz</th><th>Akce</th></tr></thead>
           <tbody id="tbody"></tbody>
         </table>
       </div>
@@ -79,6 +79,10 @@ button,.btn{font:700 14px Tahoma;background:var(--silver);border:2px solid;borde
       <div class="row" style="margin-top:10px">
         <div class="field"><label>Předmět</label><input id="fSubject" placeholder="Matematika"></div>
         <div class="field"><label>4místný kód</label><div class="row"><input id="fCode" class="code" maxlength="4" inputmode="numeric" placeholder="5831"><button id="randomCode" type="button">Náhodný</button></div></div>
+      </div>
+      <div class="row" style="margin-top:10px">
+        <div class="field"><label>Jazyk pozvánky</label><select id="fLanguage"><option value="cs">🇨🇿 Čeština</option><option value="en">🇬🇧 English</option></select></div>
+        <div class="field"><label>Tip k oslovení</label><div class="small" style="padding:8px 0">U anglické pozvánky zadejte oslovení anglicky, např. <strong>Mr Smith</strong> nebo <strong>Ms Brown</strong>.</div></div>
       </div>
       <div style="margin-top:10px"><label><input type="checkbox" id="fActive" checked> Pozvánka aktivní</label></div>
       <div class="toolbar" style="margin-top:15px"><button class="primary" id="saveTeacher">ULOŽIT</button><button id="cancelTeacher">Zrušit</button></div>
