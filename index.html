@@ -238,16 +238,16 @@
 <body>
 <div class="codeGate" id="codeGate">
   <div class="gateWindow">
-    <div class="titlebar"><span class="title">Vstup do STUŽKOVÁNÍ 95</span></div>
+    <div class="titlebar"><span class="title" id="gateTitle">Vstup do STUŽKOVÁNÍ 95</span></div>
     <div class="gateBody">
-      <h1>Zadejte čtyřmístný kód</h1>
-      <p>Kód získáte vyřešením šifry na fyzické pozvánce.</p>
+      <h1 id="gateHeading">Zadejte čtyřmístný kód</h1>
+      <p id="gateText">Kód získáte vyřešením šifry na fyzické pozvánce.</p>
       <div class="codeRow"><input id="codeInput" class="codeInput" inputmode="numeric" maxlength="4" placeholder="0000"><button class="winbtn primary" id="codeOpen">OTEVŘÍT</button></div>
       <div class="gateError" id="gateError"></div>
     </div>
   </div>
 </div>
-<div class="boot" id="boot"><div class="bootbox"><div class="bootLogo">STUŽKOVÁNÍ <span>95</span></div><pre>Starting 8.A Party System...
+<div class="boot" id="boot"><div class="bootbox"><div class="bootLogo" id="bootLogo">STUŽKOVÁNÍ <span>95</span></div><pre id="bootText">Starting 8.A Party System...
 Loading invitation......... OK
 Loading Sladovna........... OK
 Loading 90s mode........... OK
@@ -256,41 +256,41 @@ Loading maturity.exe....... WARNING</pre><div class="bootbar"><i></i></div><butt
 <div class="wallpaper"><div class="sun"></div><div class="mountain"></div><div class="mountain two"></div><div class="gridfloor"></div><div class="arc a1"></div><div class="arc a2"></div><div class="mem m1">▲ ○ +</div><div class="mem m2">◇ ★</div><div class="mem m3">+ ○</div><div class="mem m4">✦ ◇</div></div>
 <img src="./alien.png" class="alienSticker" alt="" aria-hidden="true" draggable="false">
 <img src="./disco.png" class="discoBall" alt="" aria-hidden="true" draggable="false">
-<div class="wallTitle"><div class="big">DISCO<br>PŘÍBĚH</div><div class="small">Stužkovací večírek 8.A · Gymnázium Kroměříž</div><div class="stamp">13.11.2026 // 18:00 // SLADOVNA</div></div>
-<div class="help"><b>Jak na to?</b>1. Přečíst pozvánku. 2. Přečíst <strong>DRESSCODE.TXT</strong>. 3. Kliknout na <strong>POTVRDIT ÚČAST</strong>. Ostatní ikony jsou jen bonus.</div>
+<div class="wallTitle"><div class="big">DISCO<br>PŘÍBĚH</div><div class="small" id="wallSubtitle">Stužkovací večírek 8.A · Gymnázium Kroměříž</div><div class="stamp">13.11.2026 // 18:00 // SLADOVNA</div></div>
+<div class="help" id="desktopHelp"><b>Jak na to?</b>1. Přečíst pozvánku. 2. Přečíst <strong>DRESSCODE.TXT</strong>. 3. Kliknout na <strong>POTVRDIT ÚČAST</strong>. Ostatní ikony jsou jen bonus.</div>
 <div class="icons">
-<button class="icon doc" data-open="invite"><span class="badge">1</span><span class="px"></span><span class="label">POZVÁNKA.TXT</span></button>
-<button class="icon rsvp" data-open="confirm"><span class="badge">3</span><span class="px"></span><span class="label">POTVRDIT ÚČAST</span></button>
-<button class="icon map" data-open="mapwin"><span class="px"></span><span class="label">KDE TO JE?</span></button>
+<button class="icon doc" data-open="invite"><span class="badge">1</span><span class="px"></span><span class="label" id="iconInvite">POZVÁNKA.TXT</span></button>
+<button class="icon rsvp" data-open="confirm"><span class="badge">3</span><span class="px"></span><span class="label" id="iconRsvp">POTVRDIT ÚČAST</span></button>
+<button class="icon map" data-open="mapwin"><span class="px"></span><span class="label" id="iconMap">KDE TO JE?</span></button>
 <button class="icon party" data-open="dresscodewin"><span class="badge">2</span><span class="px"></span><span class="label">DRESSCODE.TXT</span></button>
-<button class="icon trash" data-open="trashwin"><span class="px"></span><span class="label">KOŠ</span></button>
+<button class="icon trash" data-open="trashwin"><span class="px"></span><span class="label" id="iconTrash">KOŠ</span></button>
 </div></div>
 
-<section class="window invite" id="invite"><div class="titlebar"><span class="title">Pozvánka na stužkovací večírek 8.A</span><button class="close" data-close="invite">×</button></div><div class="body">
-<div class="banner"><div class="over">8.A PRESENTS // ONE NIGHT ONLY</div><div class="mega">STUŽKOVACÍ<br>VEČÍREK</div><div class="retro">★ TÉMA: DISCOPŘÍBĚH ★</div></div>
-<div class="personal"><strong>Vítejte, <span data-salutation>vážený hoste</span>.</strong> Tato pozvánka je určena právě Vám.<div class="subjectLine" data-subject></div></div>
-<p class="lead"><strong>Třída 8.A Gymnázia Kroměříž Vás srdečně zve na svůj stužkovací večírek.</strong> Přijďte s námi na jeden večer zpět do devadesátek — retro atmosféra, hudba, barvy a společný večer před maturitou.</p>
-<div class="meta"><b>Datum:</b><span>13. listopadu 2026</span><b>Čas:</b><span>od 18:00</span><b>Místo:</b><span>Sladovna Kroměříž</span><b>Téma:</b><span>Discopříběh</span><b>Vstupní kód:</b><span data-code>----</span></div>
-<div class="replyBox" id="replyBox"><strong>📨 Zpráva od 8.A</strong><div id="adminReply" style="margin-top:6px"></div></div>
-<div class="easy"><span>1 ✓ Pozvánka</span><b>→</b><span>2 Dress code</span><b>→</b><span>3 Potvrdit účast</span></div>
-<div class="actions" style="margin-top:16px"><button class="winbtn primary" data-open="confirm">POTVRDIT ÚČAST →</button><button class="winbtn" data-close="invite">Zavřít</button></div></div></section>
+<section class="window invite" id="invite"><div class="titlebar"><span class="title" id="inviteWindowTitle">Pozvánka na stužkovací večírek 8.A</span><button class="close" data-close="invite">×</button></div><div class="body">
+<div class="banner"><div class="over">8.A PRESENTS // ONE NIGHT ONLY</div><div class="mega" id="inviteMega">STUŽKOVACÍ<br>VEČÍREK</div><div class="retro" id="inviteTheme">★ TÉMA: DISCOPŘÍBĚH ★</div></div>
+<div class="personal"><strong><span id="welcomePrefix">Vítejte, </span><span data-salutation>vážený hoste</span>.</strong> <span id="personalText">Tato pozvánka je určena právě Vám.</span><div class="subjectLine" data-subject></div></div>
+<p class="lead" id="inviteLead"><strong>Třída 8.A Gymnázia Kroměříž Vás srdečně zve na svůj stužkovací večírek.</strong> Přijďte s námi na jeden večer zpět do devadesátek — retro atmosféra, hudba, barvy a společný večer před maturitou.</p>
+<div class="meta"><b id="metaDateLabel">Datum:</b><span id="metaDate">13. listopadu 2026</span><b id="metaTimeLabel">Čas:</b><span id="metaTime">od 18:00</span><b id="metaPlaceLabel">Místo:</b><span>Sladovna Kroměříž</span><b id="metaThemeLabel">Téma:</b><span>Discopříběh</span><b id="metaCodeLabel">Vstupní kód:</b><span data-code>----</span></div>
+<div class="replyBox" id="replyBox"><strong id="replyHeading">📨 Zpráva od 8.A</strong><div id="adminReply" style="margin-top:6px"></div></div>
+<div class="easy"><span id="easyInvite">1 ✓ Pozvánka</span><b>→</b><span>2 Dress code</span><b>→</b><span id="easyRsvp">3 Potvrdit účast</span></div>
+<div class="actions" style="margin-top:16px"><button class="winbtn primary" data-open="confirm" id="inviteRsvpBtn">POTVRDIT ÚČAST →</button><button class="winbtn" data-close="invite" id="inviteCloseBtn">Zavřít</button></div></div></section>
 
-<section class="window confirm" id="confirm"><div class="titlebar"><span class="title">Potvrzení účasti — Stužkovací večírek Setup</span><button class="close" data-close="confirm">×</button></div><div class="body">
-<h1>Potvrdíte účast?</h1><p class="lead"><strong><span data-salutation>vážený hoste</span></strong>, stačí vybrat jednu možnost. Odpověď se uloží přímo třídě 8.A.</p>
-<div class="choice"><button class="winbtn" data-status="Přijdu">✓ PŘIJDU</button><button class="winbtn" data-status="Nepřijdu">✕ NEPŘIJDU</button></div>
-<label><strong>Poznámka nebo dotaz:</strong></label><textarea class="note" id="note" placeholder="Nepovinné..."></textarea>
+<section class="window confirm" id="confirm"><div class="titlebar"><span class="title" id="confirmWindowTitle">Potvrzení účasti — Stužkovací večírek</span><button class="close" data-close="confirm">×</button></div><div class="body">
+<h1 id="confirmHeading">Potvrdíte účast?</h1><p class="lead"><strong><span data-salutation>vážený hoste</span></strong><span id="confirmLead">, stačí vybrat jednu možnost. Odpověď se uloží přímo třídě 8.A.</span></p>
+<div class="choice"><button class="winbtn" data-status="Přijdu" id="yesBtn">✓ PŘIJDU</button><button class="winbtn" data-status="Nepřijdu" id="noBtn">✕ NEPŘIJDU</button></div>
+<label><strong id="noteLabel">Poznámka nebo dotaz:</strong></label><textarea class="note" id="note" placeholder="Nepovinné..."></textarea>
 <div class="actions" style="margin-top:11px"><button class="winbtn primary" id="send">ODESLAT ODPOVĚĎ</button></div><div class="status" id="status"></div></div></section>
 
-<section class="window smallwin" id="mapwin"><div class="titlebar"><span class="title">Kde to je? — Sladovna.map</span><button class="close" data-close="mapwin">×</button></div><div class="body"><h1>📍 Sladovna Kroměříž</h1><p><strong>13. 11. 2026 · od 18:00</strong></p><p>Po kliknutí se otevře vyhledání Sladovny v mapách.</p><div class="actions"><a class="winbtn mapLink" href="https://www.google.com/maps/search/?api=1&query=Sladovna%20Krom%C4%9B%C5%99%C3%AD%C5%BE" target="_blank" rel="noopener">OTEVŘÍT V MAPÁCH</a><button class="winbtn" data-close="mapwin">OK</button></div></div></section>
+<section class="window smallwin" id="mapwin"><div class="titlebar"><span class="title" id="mapWindowTitle">Kde to je? — Sladovna.map</span><button class="close" data-close="mapwin">×</button></div><div class="body"><h1>📍 Sladovna Kroměříž</h1><p><strong id="mapDate">13. 11. 2026 · od 18:00</strong></p><p id="mapText">Po kliknutí se otevře vyhledání Sladovny v mapách.</p><div class="actions"><a class="winbtn mapLink" id="mapOpenBtn" href="https://www.google.com/maps/search/?api=1&query=Sladovna%20Krom%C4%9B%C5%99%C3%AD%C5%BE" target="_blank" rel="noopener">OTEVŘÍT V MAPÁCH</a><button class="winbtn" data-close="mapwin">OK</button></div></div></section>
 
 <section class="window smallwin" id="dresscodewin"><div class="titlebar"><span class="title">DRESSCODE.TXT — 80s &amp; 90s</span><button class="close" data-close="dresscodewin">×</button></div><div class="body">
 <h1>👕 Dress code</h1>
-<p class="lead">Pro nechtěnou mystifikaci s pojmem <strong>RETRO</strong> (široký to pojem, my víme) upřesňujeme dress code:</p>
-<div class="personal" style="margin:12px 0"><strong>80s–90s · pestré barvy · ikonické módní kousky</strong></div>
-<p>Pro inspiraci doporučujeme zhlédnutí filmu <strong>Discopříběh</strong>.</p>
-<p><strong>Povinný prvek:</strong> element z céček, které jste dostali společně se šifrou.</p>
-<p style="margin-bottom:0"><strong>Porušení se nepromíjí.</strong> 😎</p>
-<div class="actions" style="margin-top:16px"><button class="winbtn" data-close="dresscodewin">ROZUMÍM</button></div>
+<p class="lead" id="dressLead">Pro nechtěnou mystifikaci s pojmem <strong>RETRO</strong> (široký to pojem, my víme) upřesňujeme dress code:</p>
+<div class="personal" style="margin:12px 0"><strong id="dressStyle">80s–90s · pestré barvy · ikonické módní kousky</strong></div>
+<p id="dressInspiration">Pro inspiraci doporučujeme zhlédnutí filmu <strong>Discopříběh</strong>.</p>
+<p id="dressRequired"><strong>Povinný prvek:</strong> element z céček, které jste dostali společně se šifrou.</p>
+<p style="margin-bottom:0" id="dressWarning"><strong>Porušení se nepromíjí.</strong> 😎</p>
+<div class="actions" style="margin-top:16px"><button class="winbtn" data-close="dresscodewin" id="dressOk">ROZUMÍM</button></div>
 </div></section>
 
 <section class="window smallwin" id="musicwin"><div class="titlebar"><span class="title">8.A DISCO PLAYER — MUSIC.EXE</span><button class="close" data-close="musicwin">×</button></div><div class="body playerBody">
@@ -310,11 +310,11 @@ Loading maturity.exe....... WARNING</pre><div class="bootbar"><i></i></div><butt
 <div class="playerEmpty" id="musicEmpty">Playlist je připravený. Jakmile doplníme skladby, po zadání kódu se hudba pokusí spustit automaticky.</div>
 </div></section>
 
-<section class="window smallwin" id="trashwin"><div class="titlebar"><span class="title">Koš</span><button class="close" data-close="trashwin">×</button></div><div class="body"><h1>Obsah koše</h1><ul><li>pisemka_final_FINAL2.doc</li><li>uceni_prubezne.txt</li><li>absence.xls</li><li>motivace.zip</li><li>spanek.exe</li><li>maturita_final_FINAL.exe</li></ul><div class="actions"><button class="winbtn" data-close="trashwin">Zavřít</button></div></div></section>
+<section class="window smallwin" id="trashwin"><div class="titlebar"><span class="title" id="trashWindowTitle">Koš</span><button class="close" data-close="trashwin">×</button></div><div class="body"><h1 id="trashHeading">Obsah koše</h1><ul id="trashList"><li>pisemka_final_FINAL2.doc</li><li>uceni_prubezne.txt</li><li>absence.xls</li><li>motivace.zip</li><li>spanek.exe</li><li>maturita_final_FINAL.exe</li></ul><div class="actions"><button class="winbtn" data-close="trashwin" id="trashClose">Zavřít</button></div></div></section>
 
 <div class="musicHint" id="musicHint">🎵 Hudbu můžete spustit tlačítkem vpravo dole.</div>
 <audio id="musicAudio" preload="metadata"></audio>
-<div class="taskbar"><button class="start" id="start">▣ Start</button><div class="taskitem">Stužkovací večírek 8.A</div><button class="musicTask" id="musicTask" type="button" title="Hudba / přehrávač">🎵</button><button class="sound" id="sound" title="Vypnout systémové zvuky">🔊</button><div class="clock" id="clock">--:--</div></div>
+<div class="taskbar"><button class="start" id="start">▣ Start</button><div class="taskitem" id="taskLabel">Stužkovací večírek 8.A</div><button class="musicTask" id="musicTask" type="button" title="Hudba / přehrávač">🎵</button><button class="sound" id="sound" title="Vypnout systémové zvuky">🔊</button><div class="clock" id="clock">--:--</div></div>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.117.2"></script>
 <script src="./app.js"></script>
