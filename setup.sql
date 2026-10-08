@@ -10,7 +10,139 @@ create table if not exists public.invitations (
   name text not null,
   salutation text not null,
   subject text,
-  code text unique not null check (code ~ '^[0-9]{4}$'),
+  language text not null default 'cs' check (language in ('cs','en')),
+  code text unique not null check (code ~ '^[0-9]{4}
+  active boolean not null default true,
+  rsvp_status text check (
+    rsvp_status is null or rsvp_status in ('Přijdu', 'Nepřijdu')
+  ),
+  note text,
+  responded_at timestamptz,
+  admin_reply text,
+  admin_replied_at timestamptz,
+  created_at timestamptz not null default now()
+);
+
+insert into public.admin_users (email)
+values ('TVUJ_EMAIL')
+on conflict (email) do nothing;
+
+create or replace function public.is_admin()
+returns boolean
+language sql
+stable
+security definer
+set search_path = public
+as $$
+  select exists (
+    select 1
+    from public.admin_users
+    where lower(email) = lower(auth.jwt() ->> 'email')
+  );
+$$;
+
+alter table public.invitations enable row level security;
+alter table public.admin_users enable row level security;
+
+drop policy if exists "admins can read invitations" on public.invitations;
+drop policy if exists "admins can insert invitations" on public.invitations;
+drop policy if exists "admins can update invitations" on public.invitations;
+drop policy if exists "admins can delete invitations" on public.invitations;
+
+create policy "admins can read invitations"
+on public.invitations for select to authenticated
+using (public.is_admin());
+
+create policy "admins can insert invitations"
+on public.invitations for insert to authenticated
+with check (public.is_admin());
+
+create policy "admins can update invitations"
+on public.invitations for update to authenticated
+using (public.is_admin())
+with check (public.is_admin());
+
+create policy "admins can delete invitations"
+on public.invitations for delete to authenticated
+using (public.is_admin());
+
+create or replace function public.get_invitation(p_code text)
+returns table (
+  salutation text,
+  subject text,
+  rsvp_status text,
+  note text,
+  admin_reply text,
+  active boolean,
+  language text
+)
+language sql
+security definer
+set search_path = public
+as $$
+  select
+    i.salutation,
+    i.subject,
+    i.rsvp_status,
+    i.note,
+    i.admin_reply,
+    i.active,
+    i.language
+  from public.invitations i
+  where i.code = p_code
+    and i.active = true
+  limit 1;
+$$;
+
+create or replace function public.submit_rsvp(
+  p_code text,
+  p_status text,
+  p_note text default null
+)
+returns boolean
+language plpgsql
+security definer
+set search_path = public
+as $$
+begin
+  if p_status not in ('Přijdu', 'Nepřijdu') then
+    return false;
+  end if;
+
+  update public.invitations
+  set
+    rsvp_status = p_status,
+    note = nullif(left(trim(coalesce(p_note, '')), 1000), ''),
+    responded_at = now(),
+    admin_reply = null,
+    admin_replied_at = null
+  where code = p_code
+    and active = true;
+
+  return found;
+end;
+$$;
+
+revoke all on function public.get_invitation(text) from public;
+revoke all on function public.submit_rsvp(text, text, text) from public;
+
+grant execute on function public.get_invitation(text) to anon, authenticated;
+grant execute on function public.submit_rsvp(text, text, text) to anon, authenticated;
+grant execute on function public.is_admin() to authenticated;
+
+grant select, insert, update, delete on public.invitations to authenticated;
+grant usage, select on sequence public.invitations_id_seq to authenticated;
+
+
+
+-- Veřejný web NESMÍ mít přímý přístup do tabulek.
+revoke all on table public.invitations from anon;
+revoke all on table public.admin_users from anon, authenticated;
+
+-- Administrace používá authenticated roli, ale přístup je stále omezen RLS + is_admin().
+grant select, insert, update, delete on table public.invitations to authenticated;
+grant usage, select on sequence public.invitations_id_seq to authenticated;
+),
   active boolean not null default true,
   rsvp_status text check (
     rsvp_status is null or rsvp_status in ('Přijdu', 'Nepřijdu')
