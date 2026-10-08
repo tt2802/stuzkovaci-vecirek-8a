@@ -44,11 +44,12 @@ async function loadTeachers(){
 }
 function render(){
   const q=$('search').value.trim().toLowerCase();
-  const list=teachers.filter(t=>!q||[t.name,t.subject,t.code,t.salutation,t.rsvp_status,t.note].some(v=>String(v||'').toLowerCase().includes(q)));
+  const list=teachers.filter(t=>!q||[t.name,t.subject,t.code,t.salutation,t.language,t.rsvp_status,t.note].some(v=>String(v||'').toLowerCase().includes(q)));
   $('tbody').innerHTML=list.map(t=>`
     <tr data-id="${t.id}">
       <td><strong>${esc(t.name)}</strong><div class="small">${t.active?'aktivní':'NEAKTIVNÍ'}</div></td>
       <td>${esc(t.subject||'')}</td>
+      <td>${t.language==='en'?'🇬🇧 English':'🇨🇿 Čeština'}</td>
       <td class="code">${esc(t.code)}</td>
       <td>${statusPill(t.rsvp_status)}<div class="small">${t.responded_at?new Date(t.responded_at).toLocaleString('cs-CZ'):''}</div></td>
       <td class="note">${esc(t.note||'')}</td>
@@ -92,14 +93,14 @@ $('tbody').onclick=async e=>{
 
 function openModal(t=null){
   $('modal').classList.add('show');$('editId').value=t?.id||'';$('modalTitle').textContent=t?'Upravit učitele':'Přidat učitele';
-  $('fName').value=t?.name||'';$('fSalutation').value=t?.salutation||'';$('fSubject').value=t?.subject||'';$('fCode').value=t?.code||randomCode();$('fActive').checked=t?t.active!==false:true;
+  $('fName').value=t?.name||'';$('fSalutation').value=t?.salutation||'';$('fSubject').value=t?.subject||'';$('fCode').value=t?.code||randomCode();$('fLanguage').value=t?.language||'cs';$('fActive').checked=t?t.active!==false:true;
 }
 function closeModal(){$('modal').classList.remove('show');$('modalMsg').classList.remove('show')}
 $('addBtn').onclick=()=>openModal();$('modalClose').onclick=closeModal;$('cancelTeacher').onclick=closeModal;
 $('randomCode').onclick=()=>{$('fCode').value=randomCode()};
 $('fCode').oninput=e=>e.target.value=cleanCode(e.target.value);
 $('saveTeacher').onclick=async()=>{
-  const payload={name:$('fName').value.trim(),salutation:$('fSalutation').value.trim(),subject:$('fSubject').value.trim()||null,code:cleanCode($('fCode').value),active:$('fActive').checked};
+  const payload={name:$('fName').value.trim(),salutation:$('fSalutation').value.trim(),subject:$('fSubject').value.trim()||null,language:$('fLanguage').value==='en'?'en':'cs',code:cleanCode($('fCode').value),active:$('fActive').checked};
   if(!payload.name||!payload.salutation||payload.code.length!==4){msg($('modalMsg'),'Vyplňte jméno, oslovení a přesně 4místný kód.');return}
   const id=$('editId').value;
   const q=id?db.from('invitations').update(payload).eq('id',id):db.from('invitations').insert(payload);
@@ -109,7 +110,7 @@ $('saveTeacher').onclick=async()=>{
 };
 
 $('exportBtn').onclick=()=>{
-  const cols=['name','salutation','subject','code','active','rsvp_status','note','admin_reply','responded_at'];
+  const cols=['name','salutation','subject','language','code','active','rsvp_status','note','admin_reply','responded_at'];
   const csv=[cols.join(';'),...teachers.map(t=>cols.map(c=>'"'+String(t[c]??'').replace(/"/g,'""')+'"').join(';'))].join('\n');
   const a=document.createElement('a');a.href=URL.createObjectURL(new Blob(['\ufeff'+csv],{type:'text/csv;charset=utf-8'}));a.download='stuzkovaci-vecirek-rsvp.csv';a.click();URL.revokeObjectURL(a.href);
 };
