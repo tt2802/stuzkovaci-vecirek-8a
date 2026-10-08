@@ -3,7 +3,7 @@ const SUPABASE_KEY='sb_publishable_2tGID4zKyJ2qEkbXbrVeog_GnrhqGUr';
 const db=window.supabase.createClient(SUPABASE_URL,SUPABASE_KEY,{auth:{persistSession:false,autoRefreshToken:false,detectSessionInUrl:false}});
 
 let soundOn=true,ctx=null,selected='',currentCode='',teacher=null,failedCodeAttempts=0,codeLockedUntil=0;
-let currentLang=(navigator.language||'cs').toLowerCase().startsWith('en')?'en':'cs';
+let currentLang='cs';
 
 const I18N={
 cs:{
@@ -62,18 +62,18 @@ function audio(){if(!ctx){const A=window.AudioContext||window.webkitAudioContext
 function tone(f,d=.05,v=.012,delay=0){if(!soundOn)return;const c=audio();if(!c)return;const o=c.createOscillator(),g=c.createGain();o.type='square';o.frequency.value=f;o.connect(g);g.connect(c.destination);const t=c.currentTime+delay;g.gain.setValueAtTime(v,t);g.gain.exponentialRampToValueAtTime(.0001,t+d);o.start(t);o.stop(t+d+.02)}
 function clickS(){tone(520,.04)} function openS(){tone(640,.05);tone(860,.06,.01,.05)} function okS(){tone(523,.07);tone(659,.08,.012,.07);tone(784,.1,.012,.14)} function errorS(){tone(180,.09,.014);tone(150,.11,.012,.09)}
 function cleanCode(v){return String(v||'').replace(/\D/g,'').slice(0,4)}
-function fillTeacher(t){
-  teacher=t;
-  applyLanguage(t.language||'cs');
+function fillTeacher(invitation){
+  teacher=invitation;
+  applyLanguage(invitation.language||'cs');
   const fallback=currentLang==='en'?'dear guest':'vážený hoste';
-  document.querySelectorAll('[data-salutation]').forEach(e=>e.textContent=t.salutation||t.name||fallback);
-  document.querySelectorAll('[data-subject]').forEach(e=>e.textContent=t.subject?(t('subjectPrefix')+t.subject):'');
+  document.querySelectorAll('[data-salutation]').forEach(e=>e.textContent=invitation.salutation||invitation.name||fallback);
+  document.querySelectorAll('[data-subject]').forEach(e=>e.textContent=invitation.subject?(t('subjectPrefix')+invitation.subject):'');
   document.querySelectorAll('[data-code]').forEach(e=>e.textContent=currentCode);
-  selected=t.rsvp_status||'';
-  document.getElementById('note').value=t.note||'';
+  selected=invitation.rsvp_status||'';
+  document.getElementById('note').value=invitation.note||'';
   document.querySelectorAll('[data-status]').forEach(b=>b.classList.toggle('selected',b.dataset.status===selected));
   const box=document.getElementById('replyBox');
-  if(t.admin_reply){document.getElementById('adminReply').textContent=t.admin_reply;box.classList.add('show')}else box.classList.remove('show');
+  if(invitation.admin_reply){document.getElementById('adminReply').textContent=invitation.admin_reply;box.classList.add('show')}else box.classList.remove('show');
 }
 async function loadCode(code){
   if(Date.now()<codeLockedUntil){
