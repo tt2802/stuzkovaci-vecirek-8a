@@ -109,7 +109,8 @@ returns table (
   rsvp_status text,
   note text,
   admin_reply text,
-  active boolean
+  active boolean,
+  language text
 )
 language plpgsql
 security definer
@@ -129,7 +130,8 @@ begin
     i.rsvp_status,
     i.note,
     i.admin_reply,
-    i.active
+    i.active,
+    i.language
   from public.invitations i
   where i.code = p_code
     and i.active = true
