@@ -70,7 +70,8 @@ function pickInitialMusicIndex(){
 }
 let musicIndex=pickInitialMusicIndex(),musicShuffle=false,musicWasUnlocked=false,musicStarted=false;
 const musicAudio=document.getElementById('musicAudio');
-musicAudio.volume=.22;
+const MUSIC_VOLUME=.22;
+musicAudio.volume=MUSIC_VOLUME;
 function audio(){if(!ctx){const A=window.AudioContext||window.webkitAudioContext;if(A)ctx=new A()}if(ctx&&ctx.state==='suspended')ctx.resume();return ctx}
 function tone(f,d=.05,v=.012,delay=0){if(!soundOn)return;const c=audio();if(!c)return;const o=c.createOscillator(),g=c.createGain();o.type='square';o.frequency.value=f;o.connect(g);g.connect(c.destination);const t=c.currentTime+delay;g.gain.setValueAtTime(v,t);g.gain.exponentialRampToValueAtTime(.0001,t+d);o.start(t);o.stop(t+d+.02)}
 function clickS(){tone(520,.04)} function openS(){tone(640,.05);tone(860,.06,.01,.05)} function okS(){tone(523,.07);tone(659,.08,.012,.07);tone(784,.1,.012,.14)} function errorS(){tone(180,.09,.014);tone(150,.11,.012,.09)}
@@ -105,10 +106,12 @@ async function loadCode(code){
   document.getElementById('codeOpen').classList.remove('saving');
   const row=Array.isArray(data)?data[0]:data;
   if(error){
+    stopPrimedMusic();
     err.textContent=t('verifyError');
     err.classList.add('show');errorS();return false
   }
   if(!row||row.active===false){
+    stopPrimedMusic();
     failedCodeAttempts++;
     if(failedCodeAttempts>=3){
       const seconds=Math.min(30,Math.pow(2,failedCodeAttempts-3)*2);
@@ -121,11 +124,17 @@ async function loadCode(code){
   currentCode=code;fillTeacher(row);
   history.replaceState(null,'','?code='+encodeURIComponent(code));
   document.getElementById('codeGate').classList.add('hidden');
+  activateMusicAfterLogin();
   startExperience();
   return true;
 }
 document.getElementById('codeInput').addEventListener('input',e=>e.target.value=cleanCode(e.target.value));
-document.getElementById('codeInput').addEventListener('keydown',e=>{if(e.key==='Enter')loadCode(e.target.value)});
+document.getElementById('codeInput').addEventListener('keydown',e=>{
+  if(e.key==='Enter'){
+    unlockMusicFromGesture();
+    loadCode(e.target.value);
+  }
+});
 document.getElementById('codeOpen').onclick=()=>{
   unlockMusicFromGesture();
   loadCode(document.getElementById('codeInput').value);
@@ -140,7 +149,8 @@ function startExperience(){
   document.getElementById('skip').onclick=endBoot;
   boot.onclick=e=>{if(e.target.id!=='skip')endBoot()};
   setTimeout(endBoot,1500);
-  setTimeout(()=>attemptMusicStart(),250);
+  // Hudba už je spuštěná z kliknutí na OPEN; tady jen případný fallback.
+  setTimeout(()=>{if(musicAudio.paused)attemptMusicStart()},250);
 }
 function openWin(id){openS();document.querySelectorAll('.window').forEach(w=>w.style.zIndex=20);const e=document.getElementById(id);e.classList.add('open');e.style.zIndex=40}
 document.querySelectorAll('[data-open]').forEach(b=>b.onclick=()=>openWin(b.dataset.open));
@@ -180,14 +190,42 @@ function unlockMusicFromGesture(){
   if(musicWasUnlocked||!MUSIC_PLAYLIST.length)return;
   musicWasUnlocked=true;
   if(!musicAudio.src)loadMusicTrack(false);
-  const oldVol=musicAudio.volume;
+
+  // The OPEN click is a real user gesture. Start the random track silently
+  // right here so mobile browsers allow it, then unmute after a valid code.
   musicAudio.volume=0;
   const p=musicAudio.play();
-  if(p&&p.then)p.then(()=>{musicAudio.pause();musicAudio.currentTime=0;musicAudio.volume=oldVol}).catch(()=>{musicAudio.volume=oldVol});
+  if(p&&p.then){
+    p.then(()=>{musicStarted=true;updateMusicButton()})
+     .catch(()=>{musicAudio.volume=MUSIC_VOLUME});
+  }
+}
+function activateMusicAfterLogin(){
+  if(!MUSIC_PLAYLIST.length)return;
+  if(!musicAudio.src)loadMusicTrack(false);
+  musicAudio.volume=MUSIC_VOLUME;
+  if(musicAudio.paused){
+    musicAudio.play().then(()=>{
+      musicStarted=true;updateMusicButton();
+    }).catch(()=>showMusicHint());
+  }else{
+    musicStarted=true;
+    updateMusicButton();
+  }
+}
+function stopPrimedMusic(){
+  if(!musicWasUnlocked||!MUSIC_PLAYLIST.length)return;
+  musicAudio.pause();
+  try{musicAudio.currentTime=0}catch(_){}
+  musicAudio.volume=MUSIC_VOLUME;
+  musicStarted=false;
+  musicWasUnlocked=false;
+  updateMusicButton();
 }
 function attemptMusicStart(){
   if(!MUSIC_PLAYLIST.length){renderMusicList();return}
   if(!musicAudio.src)loadMusicTrack(false);
+  musicAudio.volume=MUSIC_VOLUME;
   musicAudio.play().then(()=>{
     musicStarted=true;updateMusicButton();
   }).catch(()=>showMusicHint());
