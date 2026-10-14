@@ -191,13 +191,14 @@ function unlockMusicFromGesture(){
   musicWasUnlocked=true;
   if(!musicAudio.src)loadMusicTrack(false);
 
-  // The OPEN click is a real user gesture. Start the random track silently
-  // right here so mobile browsers allow it, then unmute after a valid code.
-  musicAudio.volume=0;
+  // Mobile browsers reliably allow sound only when play() happens directly
+  // inside a real tap/click. Start the chosen track here and let it continue
+  // after the code is validated.
+  musicAudio.volume=MUSIC_VOLUME;
   const p=musicAudio.play();
   if(p&&p.then){
     p.then(()=>{musicStarted=true;updateMusicButton()})
-     .catch(()=>{musicAudio.volume=MUSIC_VOLUME});
+     .catch(()=>{musicStarted=false;showMusicHint()});
   }
 }
 function activateMusicAfterLogin(){
@@ -315,6 +316,10 @@ document.addEventListener('pointerdown',()=>{if(soundOn)audio()},{once:true});
 function tick(){const d=new Date();document.getElementById('clock').textContent=String(d.getHours()).padStart(2,'0')+':'+String(d.getMinutes()).padStart(2,'0')}tick();setInterval(tick,1000);
 
 applyLanguage(currentLang);
+
+// Připrav náhodnou skladbu už při načtení stránky, aby na mobilu po klepnutí
+// na OTEVŘÍT nemusel prohlížeč teprve vybírat a načítat zdroj.
+if(MUSIC_PLAYLIST.length)loadMusicTrack(false);
 
 (async()=>{
   let code=cleanCode(new URLSearchParams(location.search).get('code')); if(!code){const last=location.pathname.split('/').filter(Boolean).pop(); if(/^\\d{4}$/.test(last||'')) code=last;}
