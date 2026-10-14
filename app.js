@@ -55,7 +55,19 @@ const MUSIC_PLAYLIST = [
   {title:'War – Low Rider', src:'./music/Low Rider.mp3'},
   {title:'Cyndi Lauper – Girls Just Want to Have Fun', src:'./music/Girls Just Want To Have Fun — Cyndi Lauper.mp3'}
 ];
-let musicIndex=0,musicShuffle=false,musicWasUnlocked=false,musicStarted=false;
+function pickInitialMusicIndex(){
+  if(!MUSIC_PLAYLIST.length)return 0;
+  const key='stuzkac-last-track';
+  const last=Number(localStorage.getItem(key));
+  let choices=MUSIC_PLAYLIST.map((_,i)=>i);
+  if(MUSIC_PLAYLIST.length>1 && Number.isInteger(last) && last>=0 && last<MUSIC_PLAYLIST.length){
+    choices=choices.filter(i=>i!==last);
+  }
+  const picked=choices[Math.floor(Math.random()*choices.length)];
+  localStorage.setItem(key,String(picked));
+  return picked;
+}
+let musicIndex=pickInitialMusicIndex(),musicShuffle=false,musicWasUnlocked=false,musicStarted=false;
 const musicAudio=document.getElementById('musicAudio');
 musicAudio.volume=.22;
 function audio(){if(!ctx){const A=window.AudioContext||window.webkitAudioContext;if(A)ctx=new A()}if(ctx&&ctx.state==='suspended')ctx.resume();return ctx}
