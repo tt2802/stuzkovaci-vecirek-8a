@@ -53,7 +53,8 @@ function applyLanguage(lang){
 const MUSIC_PLAYLIST = [
   {title:'Kool & The Gang – Celebration', src:'./music/Kool & The Gang - Celebration.mp3'},
   {title:'War – Low Rider', src:'./music/Low Rider.mp3'},
-  {title:'Cyndi Lauper – Girls Just Want to Have Fun', src:'./music/Girls Just Want To Have Fun — Cyndi Lauper.mp3'}
+  {title:'Cyndi Lauper – Girls Just Want to Have Fun', src:'./music/Girls Just Want To Have Fun — Cyndi Lauper.mp3'},
+  {title:'Michal David – Céčka', src:'./music/Michal David - Céčka,nejlepší verze ... [4296mZRE7Ko].mp3'}
 ];
 function pickInitialMusicIndex(){
   if(!MUSIC_PLAYLIST.length)return 0;
