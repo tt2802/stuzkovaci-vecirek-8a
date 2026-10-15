@@ -34,7 +34,7 @@ button,.btn{font:700 14px Tahoma;background:var(--silver);border:2px solid;borde
   </section>
 
   <section class="win hidden" id="adminBox">
-    <div class="title"><span>8.A ADMIN — Stužkovací večírek 13. 11. 2026</span><button id="logoutBtn">Odhlásit</button></div>
+    <div class="title"><span>8.A ADMIN — Stužkovací večírek 13. 11. 2026</span><button id="changePasswordBtn" type="button">Změnit heslo</button><button id="logoutBtn">Odhlásit</button></div>
     <div class="body">
       <div class="topbar">
         <div><h1 style="margin-bottom:4px">Přehled pozvaných</h1><div class="small" id="who"></div></div>
@@ -87,6 +87,30 @@ button,.btn{font:700 14px Tahoma;background:var(--silver);border:2px solid;borde
       <div style="margin-top:10px"><label><input type="checkbox" id="fActive" checked> Pozvánka aktivní</label></div>
       <div class="toolbar" style="margin-top:15px"><button class="primary" id="saveTeacher">ULOŽIT</button><button id="cancelTeacher">Zrušit</button></div>
       <div class="msg" id="modalMsg"></div>
+    </div>
+  </div>
+</div>
+
+
+<div class="modal" id="passwordModal">
+  <div class="win">
+    <div class="title"><span id="passwordModalTitle">Nastavit heslo</span><button id="passwordModalClose" type="button">×</button></div>
+    <div class="body">
+      <h2 id="passwordHeading">Nastavte si vlastní heslo</h2>
+      <p id="passwordIntro">Tento účet byl vytvořen pozvánkou. Nastavte si heslo, abyste se příště mohla přihlásit normálně e-mailem a heslem.</p>
+      <div class="field">
+        <label>Nové heslo</label>
+        <input id="newPassword" type="password" autocomplete="new-password" minlength="8" placeholder="Alespoň 8 znaků">
+      </div>
+      <div class="field" style="margin-top:10px">
+        <label>Heslo znovu</label>
+        <input id="newPassword2" type="password" autocomplete="new-password" minlength="8" placeholder="Zopakujte heslo">
+      </div>
+      <div class="toolbar" style="margin-top:15px">
+        <button class="primary" id="savePassword" type="button">ULOŽIT HESLO</button>
+        <button id="passwordCancel" type="button">Zrušit</button>
+      </div>
+      <div class="msg" id="passwordMsg"></div>
     </div>
   </div>
 </div>
