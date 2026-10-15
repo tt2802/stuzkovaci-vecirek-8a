@@ -1,6 +1,7 @@
 const SUPABASE_URL='https://jchkwsrgdcmqfwcugzgc.supabase.co';
 const SUPABASE_KEY='sb_publishable_2tGID4zKyJ2qEkbXbrVeog_GnrhqGUr';
-const db=window.supabase.createClient(SUPABASE_URL,SUPABASE_KEY,{auth:{storage:window.sessionStorage,persistSession:true,autoRefreshToken:true,detectSessionInUrl:false}});
+const INVITE_FLOW=/(?:^|[?#&])type=invite(?:&|$)/.test(location.search+location.hash);
+const db=window.supabase.createClient(SUPABASE_URL,SUPABASE_KEY,{auth:{storage:window.sessionStorage,persistSession:true,autoRefreshToken:true,detectSessionInUrl:true}});
 let teachers=[];
 let idleTimer=null;
 const IDLE_MS=30*60*1000;
@@ -24,10 +25,52 @@ function randomCode(){
 }
 async function ensureSession(){
   const {data}=await db.auth.getSession();
-  if(data.session){showAdmin(data.session.user);await loadTeachers()}else showLogin();
+  if(data.session){
+    showAdmin(data.session.user);
+    await loadTeachers();
+    if(INVITE_FLOW)openPasswordModal(true);
+  }else showLogin();
 }
 function showLogin(){$('loginBox').classList.remove('hidden');$('adminBox').classList.add('hidden')}
 function showAdmin(user){resetIdle();$('loginBox').classList.add('hidden');$('adminBox').classList.remove('hidden');$('who').textContent='Přihlášen: '+user.email}
+
+let passwordRequired=false;
+function openPasswordModal(required=false){
+  passwordRequired=required;
+  $('passwordModal').classList.add('show');
+  $('newPassword').value='';
+  $('newPassword2').value='';
+  $('passwordMsg').classList.remove('show');
+  $('passwordModalTitle').textContent=required?'První přihlášení — nastavte heslo':'Změnit heslo';
+  $('passwordHeading').textContent=required?'Nastavte si vlastní heslo':'Změna hesla';
+  $('passwordIntro').textContent=required
+    ?'Účet byl otevřen přes pozvánku. Nastavte si heslo, abyste se příště mohla přihlásit normálně e-mailem a heslem.'
+    :'Zadejte nové heslo pro svůj administrátorský účet.';
+  $('passwordModalClose').classList.toggle('hidden',required);
+  $('passwordCancel').classList.toggle('hidden',required);
+  setTimeout(()=>$('newPassword').focus(),50);
+}
+function closePasswordModal(){
+  if(passwordRequired)return;
+  $('passwordModal').classList.remove('show');
+}
+$('changePasswordBtn').onclick=()=>openPasswordModal(false);
+$('passwordModalClose').onclick=closePasswordModal;
+$('passwordCancel').onclick=closePasswordModal;
+$('savePassword').onclick=async()=>{
+  const p1=$('newPassword').value;
+  const p2=$('newPassword2').value;
+  if(p1.length<8){msg($('passwordMsg'),'Heslo musí mít alespoň 8 znaků.');return}
+  if(p1!==p2){msg($('passwordMsg'),'Hesla se neshodují.');return}
+  $('savePassword').classList.add('loading');
+  const {error}=await db.auth.updateUser({password:p1});
+  $('savePassword').classList.remove('loading');
+  if(error){msg($('passwordMsg'),'Heslo se nepodařilo uložit: '+error.message);return}
+  passwordRequired=false;
+  $('passwordModal').classList.remove('show');
+  history.replaceState(null,'',location.pathname);
+  msg($('adminMsg'),'Heslo bylo nastaveno. Příště se přihlaste e-mailem a tímto heslem.');
+}
 $('loginBtn').onclick=async()=>{
   $('loginBtn').classList.add('loading');
   const {data,error}=await db.auth.signInWithPassword({email:$('email').value.trim(),password:$('password').value});
@@ -36,6 +79,16 @@ $('loginBtn').onclick=async()=>{
   showAdmin(data.user);await loadTeachers();
 };
 $('logoutBtn').onclick=async()=>{await db.auth.signOut();showLogin()};
+
+db.auth.onAuthStateChange((event,session)=>{
+  if(session && INVITE_FLOW && (event==='SIGNED_IN'||event==='INITIAL_SESSION')){
+    setTimeout(async()=>{
+      showAdmin(session.user);
+      await loadTeachers();
+      if(!$('passwordModal').classList.contains('show'))openPasswordModal(true);
+    },0);
+  }
+});
 
 async function loadTeachers(){
   const {data,error}=await db.from('invitations').select('*').order('name');
