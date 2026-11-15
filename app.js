@@ -103,12 +103,23 @@ async function loadEventMedia(){
   const {data,error}=await db.from('event_media').select('*').eq('id',1).maybeSingle();
   if(error||!data){setText('mediaStatus',t('mediaWaiting'));return}
   const watch=document.getElementById('watchVideoBtn'),down=document.getElementById('downloadVideoBtn'),photos=document.getElementById('photosBtn');
-  const status=document.getElementById('mediaStatus'),box=document.getElementById('videoBox'),video=document.getElementById('eventVideo');
+  const status=document.getElementById('mediaStatus'),box=document.getElementById('videoBox'),video=document.getElementById('eventVideo'),frame=document.getElementById('eventVideoFrame');
   const setLink=(el,url)=>{if(url){el.href=url;el.classList.remove('disabled')}else{el.removeAttribute('href');el.classList.add('disabled')}};
   setLink(watch,data.video_url);setLink(down,data.video_download_url||data.video_url);setLink(photos,data.photos_url);
-  if(data.video_url&&/\.(mp4|webm|ogg)(\?|#|$)/i.test(data.video_url)){
-    video.src=data.video_url;box.classList.add('show');
-  }else{video.removeAttribute('src');box.classList.remove('show')}
+
+  const driveMatch=(data.video_url||'').match(/drive\.google\.com\/file\/d\/([^/]+)/i);
+  box.classList.remove('show','drive');
+  video.removeAttribute('src');
+  frame.removeAttribute('src');
+
+  if(driveMatch){
+    frame.src='https://drive.google.com/file/d/'+driveMatch[1]+'/preview';
+    box.classList.add('show','drive');
+  }else if(data.video_url&&/\.(mp4|webm|ogg)(\?|#|$)/i.test(data.video_url)){
+    video.src=data.video_url;
+    box.classList.add('show');
+  }
+
   status.textContent=(data.video_url||data.photos_url)?((data.video_title||'Video')+(data.photos_url?' · fotky jsou také připravené':'')):t('mediaWaiting');
 }
 loadEventMedia();
