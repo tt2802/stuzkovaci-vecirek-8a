@@ -10,7 +10,7 @@ cs:{
 pageTitle:'Stužkovací večírek 8.A — Discopříběh',gateTitle:'Vstup do STUŽKOVÁNÍ 95',gateHeading:'Zadejte čtyřmístný kód',gateText:'Kód získáte vyřešením šifry na fyzické pozvánce.',gateOpen:'OTEVŘÍT',
 bootLogo:'STUŽKOVÁNÍ <span>95</span>',bootText:'Starting 8.A Party System...\nLoading invitation......... OK\nLoading Sladovna........... OK\nLoading 90s mode........... OK\nLoading maturity.exe....... WARNING',skip:'Přeskočit načítání',
 wallSubtitle:'Stužkovací večírek 8.A · Gymnázium Kroměříž',help:'<b>Jak na to?</b>1. Přečíst pozvánku. 2. Přečíst <strong>DRESSCODE.TXT</strong>. 3. Kliknout na <strong>POTVRDIT ÚČAST</strong>. Ostatní ikony jsou jen bonus.',
-iconInvite:'POZVÁNKA.TXT',iconRsvp:'POTVRDIT ÚČAST',iconMap:'KDE TO JE?',iconTrash:'KOŠ',inviteWindowTitle:'Pozvánka na stužkovací večírek 8.A',inviteMega:'STUŽKOVACÍ<br>VEČÍREK',inviteTheme:'★ TÉMA: DISCOPŘÍBĚH ★',
+iconInvite:'POZVÁNKA.TXT',iconRsvp:'POTVRDIT ÚČAST',iconMap:'KDE TO JE?',iconMemories:'VZPOMÍNKY',iconTrash:'KOŠ',memoriesTitle:'Vzpomínky ze stužkovacího večírku',memoriesHeading:'📼 Ještě jednou zpátky do večera',memoriesIntro:'Tady najdete video, fotky a můžete nám nechat krátké hodnocení večera.',mediaWaiting:'Video a fotky budou doplněny administrátorem.',watchVideo:'▶ PŘEHRÁT VIDEO',downloadVideo:'⬇ STÁHNOUT VIDEO',photos:'📷 OTEVŘÍT FOTKY',ratingHeading:'Jak se Vám večer líbil?',ratingIntro:'Budeme rádi za krátké hodnocení. Je uložené jen k Vaší pozvánce.',feedbackPlaceholder:'Co se Vám líbilo? Co bychom mohli příště udělat lépe?',sendFeedback:'ODESLAT HODNOCENÍ',chooseRating:'Nejdřív vyberte hodnocení od 1 do 5 hvězdiček.',feedbackSaved:'Děkujeme! Hodnocení bylo uloženo.',feedbackError:'Hodnocení se nepodařilo uložit. Zkuste to prosím znovu.',inviteWindowTitle:'Pozvánka na stužkovací večírek 8.A',inviteMega:'STUŽKOVACÍ<br>VEČÍREK',inviteTheme:'★ TÉMA: DISCOPŘÍBĚH ★',
 welcomePrefix:'Vítejte, ',personalText:'Tato pozvánka je určena právě Vám.',subjectPrefix:'Předmět: ',inviteLead:'<strong>Třída 8.A Gymnázia Kroměříž Vás srdečně zve na svůj stužkovací večírek.</strong> Přijďte s námi na jeden večer zpět do devadesátek — retro atmosféra, hudba, barvy a společný večer před maturitou.',
 dateLabel:'Datum:',date:'13. listopadu 2026',timeLabel:'Čas:',time:'od 18:00',placeLabel:'Místo:',themeLabel:'Téma:',codeLabel:'Vstupní kód:',replyHeading:'📨 Zpráva od 8.A',easyInvite:'1 ✓ Pozvánka',easyRsvp:'3 Potvrdit účast',inviteRsvp:'POTVRDIT ÚČAST →',close:'Zavřít',
 confirmWindowTitle:'Potvrzení účasti — Stužkovací večírek',confirmHeading:'Potvrdíte účast?',confirmLead:', stačí vybrat jednu možnost. Odpověď se uloží přímo třídě 8.A.',yes:'✓ PŘIJDU',no:'✕ NEPŘIJDU',noteLabel:'Poznámka nebo dotaz:',notePlaceholder:'Nepovinné...',send:'ODESLAT ODPOVĚĎ',
@@ -23,7 +23,7 @@ en:{
 pageTitle:'8.A Ribbon Ceremony — Discopříběh',gateTitle:'Enter STUŽKOVÁNÍ 95',gateHeading:'Enter your four-digit code',gateText:'You received the code by solving the puzzle on your physical invitation.',gateOpen:'OPEN',
 bootLogo:'STUŽKOVÁNÍ <span>95</span>',bootText:'Starting 8.A Party System...\nLoading invitation......... OK\nLoading Sladovna........... OK\nLoading 90s mode........... OK\nLoading graduation.exe..... WARNING',skip:'Skip loading',
 wallSubtitle:'8.A Ribbon Ceremony Evening · Gymnázium Kroměříž',help:'<b>What to do?</b>1. Read the invitation. 2. Read <strong>DRESSCODE.TXT</strong>. 3. Click <strong>CONFIRM ATTENDANCE</strong>. Everything else is just a bonus.',
-iconInvite:'INVITATION.TXT',iconRsvp:'CONFIRM ATTENDANCE',iconMap:'WHERE IS IT?',iconTrash:'RECYCLE BIN',inviteWindowTitle:'Invitation to the 8.A Ribbon Ceremony',inviteMega:'RIBBON CEREMONY<br>EVENING',inviteTheme:'★ THEME: DISCOPŘÍBĚH ★',
+iconInvite:'INVITATION.TXT',iconRsvp:'CONFIRM ATTENDANCE',iconMap:'WHERE IS IT?',iconMemories:'MEMORIES',iconTrash:'RECYCLE BIN',memoriesTitle:'Memories from the ribbon ceremony',memoriesHeading:'📼 One more trip back to the evening',memoriesIntro:'Here you can watch the video, open the photos and leave us a short review of the evening.',mediaWaiting:'The video and photos will be added by the administrators.',watchVideo:'▶ WATCH VIDEO',downloadVideo:'⬇ DOWNLOAD VIDEO',photos:'📷 OPEN PHOTOS',ratingHeading:'How did you enjoy the evening?',ratingIntro:'We would be grateful for a short review. It is stored only with your invitation.',feedbackPlaceholder:'What did you enjoy? What could we do better next time?',sendFeedback:'SEND REVIEW',chooseRating:'Please choose a rating from 1 to 5 stars first.',feedbackSaved:'Thank you! Your review has been saved.',feedbackError:'Your review could not be saved. Please try again.',inviteWindowTitle:'Invitation to the 8.A Ribbon Ceremony',inviteMega:'RIBBON CEREMONY<br>EVENING',inviteTheme:'★ THEME: DISCOPŘÍBĚH ★',
 welcomePrefix:'Welcome, ',personalText:'This invitation is intended especially for you.',subjectPrefix:'Subject: ',inviteLead:'<strong>Class 8.A of Gymnázium Kroměříž would like to invite you to our ribbon ceremony evening.</strong> Join us for one night back in the 80s and 90s — retro atmosphere, music, colour and one shared evening before our final exams.',
 dateLabel:'Date:',date:'13 November 2026',timeLabel:'Time:',time:'from 6:00 PM',placeLabel:'Venue:',themeLabel:'Theme:',codeLabel:'Invitation code:',replyHeading:'📨 Message from 8.A',easyInvite:'1 ✓ Invitation',easyRsvp:'3 Confirm attendance',inviteRsvp:'CONFIRM ATTENDANCE →',close:'Close',
 confirmWindowTitle:'RSVP — 8.A Ribbon Ceremony',confirmHeading:'Will you be joining us?',confirmLead:', simply choose one option below. Your response will be saved directly for class 8.A.',yes:"✓ I'M COMING",no:"✕ I CAN'T COME",noteLabel:'Note or question:',notePlaceholder:'Optional...',send:'SEND RESPONSE',
@@ -38,7 +38,8 @@ function setHtml(id,v){const e=document.getElementById(id);if(e)e.innerHTML=v}
 function applyLanguage(lang){
  currentLang=lang==='en'?'en':'cs';document.documentElement.lang=currentLang;document.title=t('pageTitle');
  setText('gateTitle',t('gateTitle'));setText('gateHeading',t('gateHeading'));setText('gateText',t('gateText'));setText('codeOpen',t('gateOpen'));setHtml('bootLogo',t('bootLogo'));setText('bootText',t('bootText'));setText('skip',t('skip'));
- setText('wallSubtitle',t('wallSubtitle'));setHtml('desktopHelp',t('help'));setText('iconInvite',t('iconInvite'));setText('iconRsvp',t('iconRsvp'));setText('iconMap',t('iconMap'));setText('iconTrash',t('iconTrash'));
+ setText('wallSubtitle',t('wallSubtitle'));setHtml('desktopHelp',t('help'));setText('iconInvite',t('iconInvite'));setText('iconRsvp',t('iconRsvp'));setText('iconMap',t('iconMap'));setText('iconMemories',t('iconMemories'));setText('iconTrash',t('iconTrash'));
+ setText('memoriesTitle',t('memoriesTitle'));setText('memoriesHeading',t('memoriesHeading'));setText('memoriesIntro',t('memoriesIntro'));setText('watchVideoBtn',t('watchVideo'));setText('downloadVideoBtn',t('downloadVideo'));setText('photosBtn',t('photos'));setText('ratingHeading',t('ratingHeading'));setText('ratingIntro',t('ratingIntro'));document.getElementById('eventFeedback').placeholder=t('feedbackPlaceholder');setText('sendFeedback',t('sendFeedback'));
  setText('inviteWindowTitle',t('inviteWindowTitle'));setHtml('inviteMega',t('inviteMega'));setText('inviteTheme',t('inviteTheme'));setText('welcomePrefix',t('welcomePrefix'));setText('personalText',t('personalText'));setHtml('inviteLead',t('inviteLead'));
  setText('metaDateLabel',t('dateLabel'));setText('metaDate',t('date'));setText('metaTimeLabel',t('timeLabel'));setText('metaTime',t('time'));setText('metaPlaceLabel',t('placeLabel'));setText('metaThemeLabel',t('themeLabel'));setText('metaCodeLabel',t('codeLabel'));
  setText('replyHeading',t('replyHeading'));setText('easyInvite',t('easyInvite'));setText('easyRsvp',t('easyRsvp'));setText('inviteRsvpBtn',t('inviteRsvp'));setText('inviteCloseBtn',t('close'));setText('confirmWindowTitle',t('confirmWindowTitle'));setText('confirmHeading',t('confirmHeading'));setText('confirmLead',t('confirmLead'));setText('yesBtn',t('yes'));setText('noBtn',t('no'));setText('noteLabel',t('noteLabel'));document.getElementById('note').placeholder=t('notePlaceholder');setText('send',t('send'));
@@ -88,7 +89,39 @@ function fillTeacher(invitation){
   document.querySelectorAll('[data-status]').forEach(b=>b.classList.toggle('selected',b.dataset.status===selected));
   const box=document.getElementById('replyBox');
   if(invitation.admin_reply){document.getElementById('adminReply').textContent=invitation.admin_reply;box.classList.add('show')}else box.classList.remove('show');
+  eventRating=Number(invitation.event_rating)||0;
+  document.getElementById('eventFeedback').value=invitation.event_feedback||'';
+  renderRating();
 }
+let eventRating=0;
+function renderRating(){
+  document.querySelectorAll('[data-rating]').forEach(b=>b.classList.toggle('selected',Number(b.dataset.rating)<=eventRating));
+}
+document.querySelectorAll('[data-rating]').forEach(b=>b.onclick=()=>{clickS();eventRating=Number(b.dataset.rating);renderRating()});
+
+async function loadEventMedia(){
+  const {data,error}=await db.from('event_media').select('*').eq('id',1).maybeSingle();
+  if(error||!data){setText('mediaStatus',t('mediaWaiting'));return}
+  const watch=document.getElementById('watchVideoBtn'),down=document.getElementById('downloadVideoBtn'),photos=document.getElementById('photosBtn');
+  const status=document.getElementById('mediaStatus'),box=document.getElementById('videoBox'),video=document.getElementById('eventVideo');
+  const setLink=(el,url)=>{if(url){el.href=url;el.classList.remove('disabled')}else{el.removeAttribute('href');el.classList.add('disabled')}};
+  setLink(watch,data.video_url);setLink(down,data.video_download_url||data.video_url);setLink(photos,data.photos_url);
+  if(data.video_url&&/\.(mp4|webm|ogg)(\?|#|$)/i.test(data.video_url)){
+    video.src=data.video_url;box.classList.add('show');
+  }else{video.removeAttribute('src');box.classList.remove('show')}
+  status.textContent=(data.video_url||data.photos_url)?((data.video_title||'Video')+(data.photos_url?' · fotky jsou také připravené':'')):t('mediaWaiting');
+}
+loadEventMedia();
+
+document.getElementById('sendFeedback').onclick=async()=>{
+  const st=document.getElementById('feedbackStatus');st.classList.remove('show');
+  if(!eventRating){st.textContent=t('chooseRating');st.classList.add('show');errorS();return}
+  const feedback=document.getElementById('eventFeedback').value.trim();
+  const {data,error}=await db.rpc('submit_event_feedback',{p_code:currentCode,p_rating:eventRating,p_feedback:feedback||null});
+  if(error||data!==true){st.textContent=t('feedbackError');st.classList.add('show');errorS();return}
+  st.innerHTML='<strong>✓ '+t('feedbackSaved')+'</strong>';st.classList.add('show');okS();
+};
+
 async function loadCode(code){
   if(Date.now()<codeLockedUntil){
     const wait=Math.ceil((codeLockedUntil-Date.now())/1000);
