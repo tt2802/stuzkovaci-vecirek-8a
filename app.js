@@ -2,7 +2,7 @@ const SUPABASE_URL='https://jchkwsrgdcmqfwcugzgc.supabase.co';
 const SUPABASE_KEY='sb_publishable_2tGID4zKyJ2qEkbXbrVeog_GnrhqGUr';
 const db=window.supabase.createClient(SUPABASE_URL,SUPABASE_KEY,{auth:{persistSession:false,autoRefreshToken:false,detectSessionInUrl:false}});
 
-let soundOn=true,ctx=null,selected='',currentCode='',teacher=null,failedCodeAttempts=0,codeLockedUntil=0;
+let soundOn=true,ctx=null,selected='',currentCode='',teacher=null,failedCodeAttempts=0,codeLockedUntil=0,isUniversalCode=false;
 let currentLang='cs';
 
 const I18N={
@@ -10,7 +10,7 @@ cs:{
 pageTitle:'Stužkovací večírek 8.A — Discopříběh',gateTitle:'Vstup do STUŽKOVÁNÍ 95',gateHeading:'Zadejte čtyřmístný kód',gateText:'Kód získáte vyřešením šifry na fyzické pozvánce.',gateOpen:'OTEVŘÍT',
 bootLogo:'STUŽKOVÁNÍ <span>95</span>',bootText:'Starting 8.A Party System...\nLoading invitation......... OK\nLoading Sladovna........... OK\nLoading 90s mode........... OK\nLoading maturity.exe....... WARNING',skip:'Přeskočit načítání',
 wallSubtitle:'Stužkovací večírek 8.A · Gymnázium Kroměříž',help:'<b>Po večírku</b>⭐ Ohodnoťte večer v <strong>HODNOCENÍ + VZPOMÍNKY</strong>.<br>📷 Fotky a 📼 video budou na stejném místě.',
-iconInvite:'POZVÁNKA.TXT',iconRsvp:'POTVRDIT ÚČAST',iconMap:'KDE TO JE?',iconMemories:'HODNOCENÍ + VZPOMÍNKY',iconTrash:'KOŠ',memoriesTitle:'Hodnocení a vzpomínky — stužkovací večírek',memoriesHeading:'',memoriesIntro:'Na jedno místo sem přidáme fotky i celé video, které jsme během večera pouštěli, abyste se k nim mohli kdykoliv vrátit i doma.',mediaWaiting:'Video a fotky připravujeme. Jakmile budou nahrané, objeví se tady.',watchVideo:'▶ PŘEHRÁT VIDEO',downloadVideo:'⬇ STÁHNOUT VIDEO',photos:'📷 OTEVŘÍT FOTKY',ratingHeading:'Jak se Vám večer líbil?',ratingIntro:'Vyberte 1–5 hvězdiček a klidně připište krátký komentář.',feedbackPlaceholder:'Co se Vám líbilo? Co bychom mohli příště udělat lépe?',sendFeedback:'ODESLAT HODNOCENÍ',chooseRating:'Nejdřív vyberte hodnocení od 1 do 5 hvězdiček.',feedbackSaved:'Děkujeme! Hodnocení bylo uloženo.',feedbackError:'Hodnocení se nepodařilo uložit. Zkuste to prosím znovu.',thanksHeading:'💛 Děkujeme za krásný a užitý večer!',thanksText:'Jsme rádi, že jste ho strávili s námi. Budeme moc rádi, když nám napíšete, jak se Vám večer líbil.',mediaFeatureTitle:'📷 FOTKY + 📼 VIDEO Z VEČERA',inviteWindowTitle:'Pozvánka na stužkovací večírek 8.A',inviteMega:'STUŽKOVACÍ<br>VEČÍREK',inviteTheme:'★ TÉMA: DISCOPŘÍBĚH ★',
+iconInvite:'POZVÁNKA.TXT',iconRsvp:'POTVRDIT ÚČAST',iconMap:'KDE TO JE?',iconMemories:'HODNOCENÍ + VZPOMÍNKY',iconTrash:'KOŠ',memoriesTitle:'Hodnocení a vzpomínky — stužkovací večírek',memoriesHeading:'',memoriesIntro:'Na jedno místo sem přidáme fotky i celé video, které jsme během večera pouštěli, abyste se k nim mohli kdykoliv vrátit i doma.',mediaWaiting:'Video a fotky připravujeme. Jakmile budou nahrané, objeví se tady.',downloadVideo:'⬇ STÁHNOUT VIDEO',photos:'📷 OTEVŘÍT FOTKY',ratingHeading:'Jak se Vám večer líbil?',ratingIntro:'Vyberte 1–5 hvězdiček a klidně připište krátký komentář.',feedbackPlaceholder:'Co se Vám líbilo? Co bychom mohli příště udělat lépe?',sendFeedback:'ODESLAT HODNOCENÍ',chooseRating:'Nejdřív vyberte hodnocení od 1 do 5 hvězdiček.',feedbackSaved:'Děkujeme! Hodnocení bylo uloženo.',feedbackError:'Hodnocení se nepodařilo uložit. Zkuste to prosím znovu.',thanksHeading:'💛 Děkujeme za krásný a užitý večer!',thanksText:'Jsme rádi, že jste ho strávili s námi. Budeme moc rádi, když nám napíšete, jak se Vám večer líbil.',mediaFeatureTitle:'📷 FOTKY + 📼 VIDEO Z VEČERA',inviteWindowTitle:'Pozvánka na stužkovací večírek 8.A',inviteMega:'STUŽKOVACÍ<br>VEČÍREK',inviteTheme:'★ TÉMA: DISCOPŘÍBĚH ★',
 welcomePrefix:'Vítejte, ',personalText:'Tato pozvánka je určena právě Vám.',subjectPrefix:'Předmět: ',inviteLead:'<strong>Třída 8.A Gymnázia Kroměříž Vás srdečně zve na svůj stužkovací večírek.</strong> Přijďte s námi na jeden večer zpět do devadesátek — retro atmosféra, hudba, barvy a společný večer před maturitou.',
 dateLabel:'Datum:',date:'13. listopadu 2026',timeLabel:'Čas:',time:'od 18:00',placeLabel:'Místo:',themeLabel:'Téma:',codeLabel:'Vstupní kód:',replyHeading:'📨 Zpráva od 8.A',easyInvite:'1 ✓ Pozvánka',easyRsvp:'3 Potvrdit účast',inviteRsvp:'POTVRDIT ÚČAST →',close:'Zavřít',
 confirmWindowTitle:'Potvrzení účasti — Stužkovací večírek',confirmHeading:'Potvrdíte účast?',confirmLead:', stačí vybrat jednu možnost. Odpověď se uloží přímo třídě 8.A.',yes:'✓ PŘIJDU',no:'✕ NEPŘIJDU',noteLabel:'Poznámka nebo dotaz:',notePlaceholder:'Nepovinné...',send:'ODESLAT ODPOVĚĎ',
@@ -23,7 +23,7 @@ en:{
 pageTitle:'8.A Ribbon Ceremony — Discopříběh',gateTitle:'Enter STUŽKOVÁNÍ 95',gateHeading:'Enter your four-digit code',gateText:'You received the code by solving the puzzle on your physical invitation.',gateOpen:'OPEN',
 bootLogo:'STUŽKOVÁNÍ <span>95</span>',bootText:'Starting 8.A Party System...\nLoading invitation......... OK\nLoading Sladovna........... OK\nLoading 90s mode........... OK\nLoading graduation.exe..... WARNING',skip:'Skip loading',
 wallSubtitle:'8.A Ribbon Ceremony Evening · Gymnázium Kroměříž',help:'<b>After the evening</b>⭐ Leave your review in <strong>REVIEW + MEMORIES</strong>.<br>📷 Photos and 📼 video will be available there too.',
-iconInvite:'INVITATION.TXT',iconRsvp:'CONFIRM ATTENDANCE',iconMap:'WHERE IS IT?',iconMemories:'REVIEW + MEMORIES',iconTrash:'RECYCLE BIN',memoriesTitle:'Review and memories — ribbon ceremony',memoriesHeading:'',memoriesIntro:'We will add the photos and the full video shown during the evening here, so you can come back to them anytime at home.',mediaWaiting:'We are preparing the video and photos. They will appear here as soon as they are uploaded.',watchVideo:'▶ WATCH VIDEO',downloadVideo:'⬇ DOWNLOAD VIDEO',photos:'📷 OPEN PHOTOS',ratingHeading:'How did you enjoy the evening?',ratingIntro:'Choose 1–5 stars and feel free to add a short comment.',feedbackPlaceholder:'What did you enjoy? What could we do better next time?',sendFeedback:'SEND REVIEW',chooseRating:'Please choose a rating from 1 to 5 stars first.',feedbackSaved:'Thank you! Your review has been saved.',feedbackError:'Your review could not be saved. Please try again.',thanksHeading:'💛 Thank you for a wonderful evening!',thanksText:'We are glad you spent it with us. We would really appreciate hearing how you enjoyed the evening.',mediaFeatureTitle:'📷 PHOTOS + 📼 VIDEO FROM THE EVENING',inviteWindowTitle:'Invitation to the 8.A Ribbon Ceremony',inviteMega:'RIBBON CEREMONY<br>EVENING',inviteTheme:'★ THEME: DISCOPŘÍBĚH ★',
+iconInvite:'INVITATION.TXT',iconRsvp:'CONFIRM ATTENDANCE',iconMap:'WHERE IS IT?',iconMemories:'REVIEW + MEMORIES',iconTrash:'RECYCLE BIN',memoriesTitle:'Review and memories — ribbon ceremony',memoriesHeading:'',memoriesIntro:'We will add the photos and the full video shown during the evening here, so you can come back to them anytime at home.',mediaWaiting:'We are preparing the video and photos. They will appear here as soon as they are uploaded.',downloadVideo:'⬇ DOWNLOAD VIDEO',photos:'📷 OPEN PHOTOS',ratingHeading:'How did you enjoy the evening?',ratingIntro:'Choose 1–5 stars and feel free to add a short comment.',feedbackPlaceholder:'What did you enjoy? What could we do better next time?',sendFeedback:'SEND REVIEW',chooseRating:'Please choose a rating from 1 to 5 stars first.',feedbackSaved:'Thank you! Your review has been saved.',feedbackError:'Your review could not be saved. Please try again.',thanksHeading:'💛 Thank you for a wonderful evening!',thanksText:'We are glad you spent it with us. We would really appreciate hearing how you enjoyed the evening.',mediaFeatureTitle:'📷 PHOTOS + 📼 VIDEO FROM THE EVENING',inviteWindowTitle:'Invitation to the 8.A Ribbon Ceremony',inviteMega:'RIBBON CEREMONY<br>EVENING',inviteTheme:'★ THEME: DISCOPŘÍBĚH ★',
 welcomePrefix:'Welcome, ',personalText:'This invitation is intended especially for you.',subjectPrefix:'Subject: ',inviteLead:'<strong>Class 8.A of Gymnázium Kroměříž would like to invite you to our ribbon ceremony evening.</strong> Join us for one night back in the 80s and 90s — retro atmosphere, music, colour and one shared evening before our final exams.',
 dateLabel:'Date:',date:'13 November 2026',timeLabel:'Time:',time:'from 6:00 PM',placeLabel:'Venue:',themeLabel:'Theme:',codeLabel:'Invitation code:',replyHeading:'📨 Message from 8.A',easyInvite:'1 ✓ Invitation',easyRsvp:'3 Confirm attendance',inviteRsvp:'CONFIRM ATTENDANCE →',close:'Close',
 confirmWindowTitle:'RSVP — 8.A Ribbon Ceremony',confirmHeading:'Will you be joining us?',confirmLead:', simply choose one option below. Your response will be saved directly for class 8.A.',yes:"✓ I'M COMING",no:"✕ I CAN'T COME",noteLabel:'Note or question:',notePlaceholder:'Optional...',send:'SEND RESPONSE',
@@ -39,7 +39,7 @@ function applyLanguage(lang){
  currentLang=lang==='en'?'en':'cs';document.documentElement.lang=currentLang;document.title=t('pageTitle');
  setText('gateTitle',t('gateTitle'));setText('gateHeading',t('gateHeading'));setText('gateText',t('gateText'));setText('codeOpen',t('gateOpen'));setHtml('bootLogo',t('bootLogo'));setText('bootText',t('bootText'));setText('skip',t('skip'));
  setText('wallSubtitle',t('wallSubtitle'));setHtml('desktopHelp',t('help'));setText('iconInvite',t('iconInvite'));setText('iconRsvp',t('iconRsvp'));setText('iconMap',t('iconMap'));setText('iconMemories',t('iconMemories'));setText('iconTrash',t('iconTrash'));
- setText('memoriesTitle',t('memoriesTitle'));setText('memoriesIntro',t('memoriesIntro'));setText('thanksHeading',t('thanksHeading'));setText('thanksText',t('thanksText'));setText('mediaFeatureTitle',t('mediaFeatureTitle'));setText('watchVideoBtn',t('watchVideo'));setText('downloadVideoBtn',t('downloadVideo'));setText('photosBtn',t('photos'));setText('ratingHeading',t('ratingHeading'));setText('ratingIntro',t('ratingIntro'));document.getElementById('eventFeedback').placeholder=t('feedbackPlaceholder');setText('sendFeedback',t('sendFeedback'));
+ setText('memoriesTitle',t('memoriesTitle'));setText('memoriesIntro',t('memoriesIntro'));setText('thanksHeading',t('thanksHeading'));setText('thanksText',t('thanksText'));setText('mediaFeatureTitle',t('mediaFeatureTitle'));setText('downloadVideoBtn',t('downloadVideo'));setText('photosBtn',t('photos'));setText('ratingHeading',t('ratingHeading'));setText('ratingIntro',t('ratingIntro'));document.getElementById('eventFeedback').placeholder=t('feedbackPlaceholder');setText('sendFeedback',t('sendFeedback'));
  setText('inviteWindowTitle',t('inviteWindowTitle'));setHtml('inviteMega',t('inviteMega'));setText('inviteTheme',t('inviteTheme'));setText('welcomePrefix',t('welcomePrefix'));setText('personalText',t('personalText'));setHtml('inviteLead',t('inviteLead'));
  setText('metaDateLabel',t('dateLabel'));setText('metaDate',t('date'));setText('metaTimeLabel',t('timeLabel'));setText('metaTime',t('time'));setText('metaPlaceLabel',t('placeLabel'));setText('metaThemeLabel',t('themeLabel'));setText('metaCodeLabel',t('codeLabel'));
  setText('replyHeading',t('replyHeading'));setText('easyInvite',t('easyInvite'));setText('easyRsvp',t('easyRsvp'));setText('inviteRsvpBtn',t('inviteRsvp'));setText('inviteCloseBtn',t('close'));setText('confirmWindowTitle',t('confirmWindowTitle'));setText('confirmHeading',t('confirmHeading'));setText('confirmLead',t('confirmLead'));setText('yesBtn',t('yes'));setText('noBtn',t('no'));setText('noteLabel',t('noteLabel'));document.getElementById('note').placeholder=t('notePlaceholder');setText('send',t('send'));
@@ -79,6 +79,14 @@ function clickS(){tone(520,.04)} function openS(){tone(640,.05);tone(860,.06,.01
 function cleanCode(v){return String(v||'').replace(/\D/g,'').slice(0,4)}
 function fillTeacher(invitation){
   teacher=invitation;
+  isUniversalCode=currentCode==='0000';
+  document.body.classList.toggle('universal-mode',isUniversalCode);
+  document.getElementById('feedbackSection').style.display=isUniversalCode?'none':'block';
+  document.getElementById('universalInfo').style.display=isUniversalCode?'block':'none';
+  document.getElementById('rsvpDesktopIcon').style.display=isUniversalCode?'none':'';
+  document.getElementById('inviteRsvpBtn').style.display=isUniversalCode?'none':'';
+  document.getElementById('easyRsvpWrap').style.display=isUniversalCode?'none':'';
+  if(isUniversalCode)document.getElementById('confirm').classList.remove('open');
   applyLanguage(invitation.language||'cs');
   const fallback=currentLang==='en'?'dear guest':'vážený hoste';
   document.querySelectorAll('[data-salutation]').forEach(e=>e.textContent=invitation.salutation||invitation.name||fallback);
@@ -102,25 +110,12 @@ document.querySelectorAll('[data-rating]').forEach(b=>b.onclick=()=>{clickS();ev
 async function loadEventMedia(){
   const {data,error}=await db.from('event_media').select('*').eq('id',1).maybeSingle();
   if(error||!data){setText('mediaStatus',t('mediaWaiting'));return}
-  const watch=document.getElementById('watchVideoBtn'),down=document.getElementById('downloadVideoBtn'),photos=document.getElementById('photosBtn');
-  const status=document.getElementById('mediaStatus'),box=document.getElementById('videoBox'),video=document.getElementById('eventVideo'),frame=document.getElementById('eventVideoFrame');
+  const down=document.getElementById('downloadVideoBtn'),photos=document.getElementById('photosBtn');
+  const status=document.getElementById('mediaStatus');
   const setLink=(el,url)=>{if(url){el.href=url;el.classList.remove('disabled')}else{el.removeAttribute('href');el.classList.add('disabled')}};
-  setLink(watch,data.video_url);setLink(down,data.video_download_url||data.video_url);setLink(photos,data.photos_url);
-
-  const driveMatch=(data.video_url||'').match(/drive\.google\.com\/file\/d\/([^/]+)/i);
-  box.classList.remove('show','drive');
-  video.removeAttribute('src');
-  frame.removeAttribute('src');
-
-  if(driveMatch){
-    frame.src='https://drive.google.com/file/d/'+driveMatch[1]+'/preview';
-    box.classList.add('show','drive');
-  }else if(data.video_url&&/\.(mp4|webm|ogg)(\?|#|$)/i.test(data.video_url)){
-    video.src=data.video_url;
-    box.classList.add('show');
-  }
-
-  status.textContent=(data.video_url||data.photos_url)?((data.video_title||'Video')+(data.photos_url?' · fotky jsou také připravené':'')):t('mediaWaiting');
+  setLink(down,data.video_download_url||data.video_url);
+  setLink(photos,data.photos_url);
+  status.textContent=(data.video_url||data.video_download_url||data.photos_url)?((data.video_title||'Video')+(data.photos_url?' · fotky jsou také připravené':'')):t('mediaWaiting');
 }
 loadEventMedia();
 
