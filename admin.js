@@ -2,7 +2,7 @@ const SUPABASE_URL='https://jchkwsrgdcmqfwcugzgc.supabase.co';
 const SUPABASE_KEY='sb_publishable_2tGID4zKyJ2qEkbXbrVeog_GnrhqGUr';
 const INVITE_FLOW=/(?:^|[?#&])type=invite(?:&|$)/.test(location.search+location.hash);
 const db=window.supabase.createClient(SUPABASE_URL,SUPABASE_KEY,{auth:{storage:window.sessionStorage,persistSession:true,autoRefreshToken:true,detectSessionInUrl:true}});
-let teachers=[];
+let teachers=[];let eventMedia=null;
 let idleTimer=null;
 const IDLE_MS=30*60*1000;
 function resetIdle(){
@@ -27,7 +27,7 @@ async function ensureSession(){
   const {data}=await db.auth.getSession();
   if(data.session){
     showAdmin(data.session.user);
-    await loadTeachers();
+    await Promise.all([loadTeachers(),loadMedia()]);
     if(INVITE_FLOW)openPasswordModal(true);
   }else showLogin();
 }
@@ -76,7 +76,7 @@ $('loginBtn').onclick=async()=>{
   const {data,error}=await db.auth.signInWithPassword({email:$('email').value.trim(),password:$('password').value});
   $('loginBtn').classList.remove('loading');
   if(error){msg($('loginMsg'),'Přihlášení se nepodařilo. Zkontrolujte e-mail a heslo.');return}
-  showAdmin(data.user);await loadTeachers();
+  showAdmin(data.user);await Promise.all([loadTeachers(),loadMedia()]);
 };
 $('logoutBtn').onclick=async()=>{await db.auth.signOut();showLogin()};
 
@@ -90,6 +90,21 @@ db.auth.onAuthStateChange((event,session)=>{
   }
 });
 
+async function loadMedia(){
+  const {data,error}=await db.from('event_media').select('*').eq('id',1).maybeSingle();
+  if(error){msg($('mediaMsg'),'Načtení odkazů selhalo: '+error.message);return}
+  eventMedia=data||{id:1};
+  $('mediaTitle').value=eventMedia.video_title||'Video ze stužkovacího večírku';
+  $('mediaVideo').value=eventMedia.video_url||'';
+  $('mediaDownload').value=eventMedia.video_download_url||'';
+  $('mediaPhotos').value=eventMedia.photos_url||'';
+}
+$('saveMedia').onclick=async()=>{
+  const payload={id:1,video_title:$('mediaTitle').value.trim()||'Video ze stužkovacího večírku',video_url:$('mediaVideo').value.trim()||null,video_download_url:$('mediaDownload').value.trim()||null,photos_url:$('mediaPhotos').value.trim()||null,updated_at:new Date().toISOString()};
+  const {error}=await db.from('event_media').upsert(payload,{onConflict:'id'});
+  if(error)msg($('mediaMsg'),'Uložení selhalo: '+error.message);else{eventMedia=payload;msg($('mediaMsg'),'Odkazy byly uloženy.')}
+};
+
 async function loadTeachers(){
   const {data,error}=await db.from('invitations').select('*').order('name');
   if(error){msg($('adminMsg'),'Načtení selhalo: '+error.message);return}
@@ -97,7 +112,7 @@ async function loadTeachers(){
 }
 function render(){
   const q=$('search').value.trim().toLowerCase();
-  const list=teachers.filter(t=>!q||[t.name,t.subject,t.code,t.salutation,t.language,t.rsvp_status,t.note].some(v=>String(v||'').toLowerCase().includes(q)));
+  const list=teachers.filter(t=>!q||[t.name,t.subject,t.code,t.salutation,t.language,t.rsvp_status,t.note,t.event_feedback,t.event_rating].some(v=>String(v||'').toLowerCase().includes(q)));
   $('tbody').innerHTML=list.map(t=>`
     <tr data-id="${t.id}">
       <td><strong>${esc(t.name)}</strong><div class="small">${t.active?'aktivní':'NEAKTIVNÍ'}</div></td>
@@ -105,6 +120,7 @@ function render(){
       <td>${t.language==='en'?'🇬🇧 English':'🇨🇿 Čeština'}</td>
       <td class="code">${esc(t.code)}</td>
       <td>${statusPill(t.rsvp_status)}<div class="small">${t.responded_at?new Date(t.responded_at).toLocaleString('cs-CZ'):''}</div></td>
+      <td>${t.event_rating?'<strong>'+('★'.repeat(t.event_rating))+('☆'.repeat(5-t.event_rating))+'</strong>':'—'}<div class="small">${esc(t.event_feedback||'')}</div></td>
       <td class="note">${esc(t.note||'')}</td>
       <td><textarea class="reply" data-reply="${t.id}" placeholder="Odpověď učiteli...">${esc(t.admin_reply||'')}</textarea><button data-save-reply="${t.id}" style="margin-top:5px">Uložit odpověď</button></td>
       <td><button data-copy="${t.code}">Kopírovat odkaz</button></td>
@@ -115,6 +131,7 @@ function render(){
   $('sNo').textContent=teachers.filter(t=>t.rsvp_status==='Nepřijdu').length;
   $('sNone').textContent=teachers.filter(t=>!t.rsvp_status).length;
   $('sNotes').textContent=teachers.filter(t=>(t.note||'').trim()).length;
+  $('sRatings').textContent=teachers.filter(t=>t.event_rating).length;
 }
 $('search').oninput=render;
 $('refreshBtn').onclick=loadTeachers;
@@ -163,7 +180,7 @@ $('saveTeacher').onclick=async()=>{
 };
 
 $('exportBtn').onclick=()=>{
-  const cols=['name','salutation','subject','language','code','active','rsvp_status','note','admin_reply','responded_at'];
+  const cols=['name','salutation','subject','language','code','active','rsvp_status','note','admin_reply','responded_at','event_rating','event_feedback','event_feedback_at'];
   const csv=[cols.join(';'),...teachers.map(t=>cols.map(c=>'"'+String(t[c]??'').replace(/"/g,'""')+'"').join(';'))].join('\n');
   const a=document.createElement('a');a.href=URL.createObjectURL(new Blob(['\ufeff'+csv],{type:'text/csv;charset=utf-8'}));a.download='stuzkovaci-vecirek-rsvp.csv';a.click();URL.revokeObjectURL(a.href);
 };
