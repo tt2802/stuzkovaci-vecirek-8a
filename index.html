@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="robots" content="noindex,nofollow">
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://cdn.jsdelivr.net; style-src 'self' 'unsafe-inline'; connect-src https://jchkwsrgdcmqfwcugzgc.supabase.co wss://jchkwsrgdcmqfwcugzgc.supabase.co; img-src 'self' data:; font-src 'self'; object-src 'none'; base-uri 'none'; form-action 'self'; frame-src https://drive.google.com; upgrade-insecure-requests">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://cdn.jsdelivr.net; style-src 'self' 'unsafe-inline'; connect-src https://jchkwsrgdcmqfwcugzgc.supabase.co wss://jchkwsrgdcmqfwcugzgc.supabase.co; img-src 'self' data:; font-src 'self'; object-src 'none'; base-uri 'none'; form-action 'self'; frame-src 'none'; upgrade-insecure-requests">
 <meta name="referrer" content="no-referrer">
 <meta name="theme-color" content="#006b73">
 <title>Stužkovací večírek 8.A — Discopříběh</title>
@@ -31,7 +31,7 @@
 .map .px{background:#ffe9a8;border:3px solid #111;transform:skewY(-4deg)}.map .px:before{content:"";position:absolute;left:17px;top:8px;width:8px;height:8px;border-radius:50%;background:#e21c1c;box-shadow:0 8px 0 -2px #e21c1c}.map .px:after{content:"";position:absolute;left:6px;right:6px;bottom:6px;height:3px;background:#1d69b3;transform:rotate(-13deg)}
 .party .px{border:3px solid #111;border-radius:50%;background:conic-gradient(#61efff,#ff43b4,#fff56a,#61efff);box-shadow:inset 0 0 0 5px #d9d9d9,inset 0 0 0 11px #6e6e6e}.party .px:after{content:"90s";position:absolute;left:-7px;right:-7px;bottom:-12px;color:#fff;background:#3d1166;border:2px solid #111;font:900 8px/1 Arial;padding:2px 0;text-shadow:none}.party .label{margin-top:16px}.trash .px{width:36px;height:38px;background:linear-gradient(90deg,#e5e5e5 0 25%,#aaa 26% 38%,#e5e5e5 39% 62%,#aaa 63% 74%,#e5e5e5 75%);border:3px solid #111;border-top-width:5px}.trash .px:before{content:"";position:absolute;left:4px;right:4px;top:-10px;height:5px;background:#e5e5e5;border:2px solid #111}
 .memories .px{width:48px;height:38px;background:#252525;border:3px solid #111;border-radius:3px}.memories .px:before{content:"";position:absolute;left:6px;top:7px;width:13px;height:13px;border:3px solid #e7e7e7;border-radius:50%;box-shadow:18px 0 0 -3px #e7e7e7}.memories .px:after{content:"REC";position:absolute;right:3px;bottom:2px;color:#ff3e3e;font:900 8px/1 Arial;text-shadow:none}.badge.new{width:auto;min-width:38px;padding:0 4px;right:-1px;font-size:9px;background:#ffef3f}.thanksBox{background:linear-gradient(135deg,#fff4b8,#ffd3ef);border:2px solid #000;padding:12px 13px;margin-bottom:14px;box-shadow:4px 4px 0 #30d9e8}.thanksBox strong{display:block;font-size:18px;margin-bottom:5px}.mediaFeature{background:#101020;color:#fff;border:2px solid #000;padding:12px;margin:14px 0;box-shadow:4px 4px 0 #ff42b0}.mediaFeature strong{display:block;color:#fff46b;font-size:18px;margin-bottom:5px}
-.mediaButtons{display:flex;flex-wrap:wrap;gap:8px;margin:12px 0}.mediaButtons .winbtn.disabled{opacity:.45;pointer-events:none}.ratingStars{display:flex;gap:6px;margin:10px 0 14px;flex-wrap:wrap}.ratingStars button{font-size:26px;line-height:1;padding:5px 8px;min-width:44px}.ratingStars button.selected{background:#fff2a8;outline:2px dotted #000;outline-offset:-5px}.mediaNote{background:#eef6ff;border:1px solid #58708a;padding:9px;margin:10px 0}.videoBox{display:none;margin:12px 0}.videoBox.show{display:block}.videoBox video,.videoBox iframe{width:100%;background:#000;border:2px inset #777}.videoBox video{max-height:48vh}.videoBox iframe{height:min(56vh,430px);display:none}.videoBox.drive iframe{display:block}.videoBox.drive video{display:none}
+.mediaButtons{display:flex;flex-wrap:wrap;gap:8px;margin:12px 0}.mediaButtons .winbtn.disabled{opacity:.45;pointer-events:none}.ratingStars{display:flex;gap:6px;margin:10px 0 14px;flex-wrap:wrap}.ratingStars button{font-size:26px;line-height:1;padding:5px 8px;min-width:44px}.ratingStars button.selected{background:#fff2a8;outline:2px dotted #000;outline-offset:-5px}.mediaNote{background:#eef6ff;border:1px solid #58708a;padding:9px;margin:10px 0}
 .window{position:fixed;background:var(--silver);border:2px solid;border-color:#fff #000 #000 #fff;box-shadow:3px 3px 0 rgba(0,0,0,.35);display:none;z-index:20;min-width:300px}.window.open{display:block}.invite{width:min(650px,calc(100vw - 24px));left:50%;top:49%;transform:translate(-50%,-50%)}.confirm{width:min(570px,calc(100vw - 24px));left:50%;top:50%;transform:translate(-50%,-50%)}.smallwin{width:min(470px,calc(100vw - 24px));left:23%;top:20%}#memorieswin{width:min(680px,calc(100vw - 48px));left:50%;top:50%;transform:translate(-50%,-50%);max-height:calc(100vh - 90px);overflow:hidden}#memorieswin .body{max-height:calc(100vh - 130px);overflow-y:auto}
 .titlebar{background:linear-gradient(90deg,var(--navy),#0f54af);color:#fff;padding:4px 5px;display:flex;align-items:center;font-weight:700}.titlebar .title{flex:1}.close{font:700 13px Arial;width:24px;height:22px;padding:0;background:var(--silver);border:2px solid;border-color:#fff #000 #000 #fff;cursor:pointer}.body{padding:18px;background:#fff;margin:3px;border:2px solid;border-color:#808080 #fff #fff #808080}.body h1{font-size:26px;margin:0 0 8px}.lead{font-size:16px;line-height:1.45}.banner{background:linear-gradient(90deg,#090319,#51127d,#ff3eac);color:#fff;border:2px solid #000;padding:16px;margin-bottom:17px;box-shadow:4px 4px 0 var(--yellow)}.banner .over{font:900 12px/1 monospace;color:var(--cyan);letter-spacing:.12em}.banner .mega{font:900 clamp(36px,6vw,60px)/.82 Impact,Arial Black,sans-serif;margin-top:8px;text-shadow:3px 3px #000}.banner .retro{font:900 19px/1 Arial Black;color:var(--yellow);margin-top:10px}.personal{background:#ffffe1;border:1px solid #000;padding:9px 10px;margin:14px 0}.meta{display:grid;grid-template-columns:115px 1fr;gap:8px 12px;margin:17px 0}.winbtn{background:var(--silver);border:2px solid;border-color:#fff #000 #000 #fff;padding:8px 15px;min-width:100px;font-weight:700;cursor:pointer}.winbtn:active{border-color:#000 #fff #fff #000}.primary{font-size:16px;padding:11px 18px!important;box-shadow:0 0 0 2px #000}.actions{display:flex;gap:9px;flex-wrap:wrap;justify-content:flex-end}.choice{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:14px 0}.choice button{min-height:56px}.choice button.selected{outline:3px dotted #000;outline-offset:-7px}.note{width:100%;min-height:96px;resize:vertical;padding:7px;border:2px solid;border-color:#808080 #fff #fff #808080}.status{display:none;margin-top:13px;padding:10px;background:#ffffe1;border:1px solid #000}.status.show{display:block}.easy{display:flex;gap:7px;align-items:center;flex-wrap:wrap;margin-top:11px}.easy span{background:#efefef;border:1px solid #777;padding:5px 7px}
 .taskbar{position:fixed;left:0;right:0;bottom:0;height:42px;background:var(--silver);border-top:2px solid #fff;display:flex;align-items:center;padding:4px;gap:6px;z-index:80}.start{height:32px;padding:0 10px;background:var(--silver);border:2px solid;border-color:#fff #000 #000 #fff;font-weight:700}.taskitem{height:32px;min-width:230px;padding:6px 10px;background:#d0d0d0;border:2px solid;border-color:#808080 #fff #fff #808080}.clock{margin-left:auto;height:32px;padding:6px 10px;border:2px solid;border-color:#808080 #fff #fff #808080}.sound{height:32px;min-width:38px;background:var(--silver);border:2px solid;border-color:#fff #000 #000 #fff;cursor:pointer}
@@ -265,7 +265,7 @@ Loading maturity.exe....... WARNING</pre><div class="bootbar"><i></i></div><butt
 <button class="icon doc" data-open="invite"><span class="px"></span><span class="label" id="iconInvite">POZVÁNKA.TXT</span></button>
 <button class="icon map" data-open="mapwin"><span class="px"></span><span class="label" id="iconMap">KDE TO JE?</span></button>
 <button class="icon party" data-open="dresscodewin"><span class="px"></span><span class="label">DRESSCODE.TXT</span></button>
-<button class="icon rsvp" data-open="confirm"><span class="px"></span><span class="label" id="iconRsvp">POTVRDIT ÚČAST</span></button>
+<button class="icon rsvp" data-open="confirm" id="rsvpDesktopIcon"><span class="px"></span><span class="label" id="iconRsvp">POTVRDIT ÚČAST</span></button>
 <button class="icon trash" data-open="trashwin"><span class="px"></span><span class="label" id="iconTrash">KOŠ</span></button>
 </div></div>
 
@@ -275,7 +275,7 @@ Loading maturity.exe....... WARNING</pre><div class="bootbar"><i></i></div><butt
 <p class="lead" id="inviteLead"><strong>Třída 8.A Gymnázia Kroměříž Vás srdečně zve na svůj stužkovací večírek.</strong> Přijďte s námi na jeden večer zpět do devadesátek — retro atmosféra, hudba, barvy a společný večer před maturitou.</p>
 <div class="meta"><b id="metaDateLabel">Datum:</b><span id="metaDate">13. listopadu 2026</span><b id="metaTimeLabel">Čas:</b><span id="metaTime">od 18:00</span><b id="metaPlaceLabel">Místo:</b><span>Sladovna Kroměříž</span><b id="metaThemeLabel">Téma:</b><span>Discopříběh</span><b id="metaCodeLabel">Vstupní kód:</b><span data-code>----</span></div>
 <div class="replyBox" id="replyBox"><strong id="replyHeading">📨 Zpráva od 8.A</strong><div id="adminReply" style="margin-top:6px"></div></div>
-<div class="easy"><span id="easyInvite">1 ✓ Pozvánka</span><b>→</b><span>2 Dress code</span><b>→</b><span id="easyRsvp">3 Potvrdit účast</span></div>
+<div class="easy"><span id="easyInvite">1 ✓ Pozvánka</span><b>→</b><span>2 Dress code</span><span id="easyRsvpWrap"><b>→</b><span id="easyRsvp">3 Potvrdit účast</span></span></div>
 <div class="actions" style="margin-top:16px"><button class="winbtn primary" data-open="confirm" id="inviteRsvpBtn">POTVRDIT ÚČAST →</button><button class="winbtn" data-close="invite" id="inviteCloseBtn">Zavřít</button></div></div></section>
 
 <section class="window confirm" id="confirm"><div class="titlebar"><span class="title" id="confirmWindowTitle">Potvrzení účasti — Stužkovací večírek</span><button class="close" data-close="confirm">×</button></div><div class="body">
@@ -319,6 +319,8 @@ Loading maturity.exe....... WARNING</pre><div class="bootbar"><i></i></div><butt
   <span id="thanksText">Jsme rádi, že jste ho strávili s námi. Budeme moc rádi, když nám napíšete, jak se Vám večer líbil.</span>
 </div>
 
+<div class="mediaNote" id="universalInfo" style="display:none"><strong>Nouzový univerzální vstup.</strong><br>Tady si můžete stáhnout video a později otevřít fotky. Hodnocení ani potvrzení účasti nejsou u tohoto vstupu dostupné, protože bychom nevěděli, od koho odpověď je.</div>
+<div id="feedbackSection">
 <h1 id="ratingHeading">Jak se Vám večer líbil?</h1>
 <p id="ratingIntro">Vyberte 1–5 hvězdiček a klidně připište krátký komentář.</p>
 <div class="ratingStars" id="ratingStars">
@@ -331,15 +333,14 @@ Loading maturity.exe....... WARNING</pre><div class="bootbar"><i></i></div><butt
 <textarea class="note" id="eventFeedback" placeholder="Co se Vám líbilo? Co bychom mohli příště udělat lépe?"></textarea>
 <div class="actions" style="margin-top:11px"><button class="winbtn primary" id="sendFeedback">ODESLAT HODNOCENÍ</button></div>
 <div class="status" id="feedbackStatus"></div>
+</div>
 
 <div class="mediaFeature">
   <strong id="mediaFeatureTitle">📷 FOTKY + 📼 VIDEO Z VEČERA</strong>
   <span id="memoriesIntro">Na jedno místo sem přidáme fotky i celé video, které jsme během večera pouštěli, abyste se k nim mohli kdykoliv vrátit i doma.</span>
 </div>
 <div class="mediaNote" id="mediaStatus">Video a fotky připravujeme. Jakmile budou nahrané, objeví se tady.</div>
-<div class="videoBox" id="videoBox"><iframe id="eventVideoFrame" title="Video ze stužkovacího večírku" allow="autoplay" allowfullscreen></iframe><video id="eventVideo" controls playsinline preload="metadata"></video></div>
 <div class="mediaButtons">
-  <a class="winbtn disabled" id="watchVideoBtn" target="_blank" rel="noopener">▶ PŘEHRÁT VIDEO</a>
   <a class="winbtn disabled" id="downloadVideoBtn" target="_blank" rel="noopener">⬇ STÁHNOUT VIDEO</a>
   <a class="winbtn disabled" id="photosBtn" target="_blank" rel="noopener">📷 OTEVŘÍT FOTKY</a>
 </div>
